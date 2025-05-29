@@ -9,10 +9,8 @@ import uvicorn
 
 from fastapi import FastAPI, HTTPException, Header, Request
 from fastapi.responses import StreamingResponse
-from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import AsyncGenerator, Optional, List, Dict
-from cryptography.fernet import Fernet
 
 # Initialize FastAPI application
 app = FastAPI(
@@ -21,36 +19,8 @@ app = FastAPI(
     description="Unified API wrapper LLM providers"
 )
 
+#Global dictionary of providers
 providers = dict()
-
-
-"""
-# Sambanova Provider
-PROVIDERS = {
-    "sambanova": ProviderConfig(
-        name="Sambanova",
-        base_url="https://api.sambanova.ai/v1",
-        api_key_env="SAMBANOVA_API_KEY",
-        supported_models=["DeepSeek-V3-0324"]
-    )
-}
-
-PROVIDERS = {
-    "xai": ProviderConfig(
-        name="XAI",
-        base_url="https://api.x.ai/v1",
-        api_key_env="XAI_API_KEY",
-        supported_models=["grok-3-latest"]
-        payload["search_parameters"] =\
-        {
-            "mode": "on",
-            "sources": [{ "type": "news", "country": "US" }],
-            "from_date": "2025-05-22",
-            "to_date": "2022-05-24" 
-        }
-    )
-}
-"""
 
 # ========== Core LLM Provider Class ==========
 class LLMProvider:
@@ -60,8 +30,8 @@ class LLMProvider:
         """Initialize the LLMProvider
         """
         self.name = name
+        self.client = None
         self.base_url = base_url
-        self.client = httpx.AsyncClient()
         self.supported_models = supported_models
         self.payload_extra_options = payload_extra_options
         self.logger = logging.getLogger(name)
@@ -90,44 +60,43 @@ class LLMProvider:
             "Content-Type": "application/json"
         }
         payload.update(self.payload_extra_options)
-        print (payload)
         
         if stream:
-            print ("--Redirecting to stream completion--")
             return self._stream_completion(payload, headers)
         else:
-            return None
-            #return await self._standard_completion(payload, headers)
+            return self._standard_completion(payload, headers)
 
-    async def _standard_completion(self, payload: dict, headers: dict):
+    def _standard_completion(self, payload: dict, headers: dict):
         try:
-            response = await self.client.post(
+            response = httpx.post(
                 f"{self.base_url}/chat/completions",
-                json=payload,
                 headers=headers,
-                timeout=30
+                json=payload,
+                timeout=300
             )
-            response.raise_for_status()
-            return response.json()
+            response_json = response.json()
+            return response_json
         except httpx.HTTPStatusError as e:
             self.logger.error(f"API Error: {e.response.text}")
             raise HTTPException(
                 status_code=e.response.status_code,
                 detail=f"Provider API error: {e.response.text}"
             )
+        except json.JSONDecodeError as e:
+            self.logger.error(f"Error parsing JSON response: {e}")
+            raise HTTPException(
+                status_code= 500,
+                detail="Error parsing JSON response"
+            )
 
     async def _stream_completion(self, payload: dict, headers: dict) -> AsyncGenerator[str, None]:
-        print ("Starting streaming response")
-        print (f"{self.base_url}/chat/completions")
-        print (headers)
-        print (payload)
         self.client = httpx.AsyncClient()
         try:
             response = await self.client.post(
                 f"{self.base_url}/chat/completions",
                 headers=headers,
                 json=payload,
-                timeout= 1800
+                timeout=300
             )
             async for chunk in response.aiter_lines():
                 processed = self.process_streaming_chunk(chunk)
@@ -210,13 +179,13 @@ async def chat_endpoint(
     provider = get_provider(model)
     AnalyticsLogger().log_request(provider.get_name(), model)
    
-    if payload.get("stream", True):
+    if payload.get("stream") == True:
         return StreamingResponse(
             provider.chat_completion(payload, True),
             media_type="text/event-stream"
         )
     else:
-        response = await provider.chat_completion(payload, False)
+        response = provider.chat_completion(payload, False)
         return response
 
 
