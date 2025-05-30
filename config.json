@@ -1,0 +1,14 @@
+{
+    "xai": {
+        "name": "XAI",
+        "base_url": "https://api.x.ai/v1",
+        "api_key_env": "XAI_API_KEY",
+        "supported_models": ["grok-3-latest"],
+        "payload_extra_parameters": {
+            "search_parameters": {
+                "mode": "auto",
+                "sources": [{"type": "news", "country": "US" }]
+            }
+        }
+    }
+}
