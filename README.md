@@ -17,7 +17,7 @@ After cloning the code from this git repository, please follow the following ste
    
    `python3 -m venv ./venv`
    
-   `source ./venv1/bin/activate`
+   `source ./venv/bin/activate`
    
    `python3 -m pip install -r requirements.txt`
 2. Edit the config file. The default config file is set up for XAI, and is designed to issue a LLM inference call with additional search for the latest news. The relevant lines in the config file are as follows:
