@@ -40,7 +40,8 @@ class LLMProvider:
         self.logger = logging.getLogger(name)
         self.api_key = os.getenv(api_key_env)
         if not self.api_key:
-            raise ValueError("API Key is missing")
+            raise ValueError(f"API Key for provder {name} is missing."
+                             f"Please either provide the API Key, or edit the config.json file to exclude the provider")
 
     def get_name(self) -> str:
         """Get the name of the model
