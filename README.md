@@ -8,6 +8,8 @@ llm-wrapper can be useful in the following scenarios:
 2. Applying rate limits to your LLM inference calls. Typically apps don't set rate limits on the number of LLM inference queries they will issue. Cloud providers allow you to set coarse expense limits such as the amount of money you want to spend in a week or a month. llm-wrapper can be useful to set rate limits on per token granularity, so you can manage exactlty how much inference you want to do.
 3. Routing LLM Inference calls across multiple providers. You can implement your own version of Openrouter.ai by routing inference calls across different cloud providers depending on which provider is cheap, has maximum uptime, or is delivering the lowest latency to your request.
 
+4. Parsing the response to generate the final response in OpenAI API compatible format. As an example, for some vendors such as Perplexity Sonar who provide details on citations and search channels, the results need to be morphed to be compliant with other Open API AI compatible providers. 
+
 Note that items 2 and 3 are in the works and are not available yet.
 
 # Using llm-wrapper
@@ -20,7 +22,7 @@ After cloning the code from this git repository, please follow the following ste
    `source ./venv/bin/activate`
    
    `python3 -m pip install -r requirements.txt`
-2. Edit the config file. The default config file is set up for XAI, and is designed to issue a LLM inference call with additional search for the latest news. The relevant lines in the config file are as follows:
+2. Edit the config file. The default config file is set up for XAI, and Perplexity Sonar, and is designed to issue a LLM inference call with additional search for the latest news. The relevant lines in the config file are as follows:
    
 ```"payload_extra_parameters": {
             "search_parameters": {
@@ -32,11 +34,17 @@ After cloning the code from this git repository, please follow the following ste
 
 Anything added for the key `payload_extra_parameters` is updated in the LLM inference request.
 
-You can also modify the `base_url` to point to your preferred LLM provider (make sure they are OpenAI supported), or `supported_models` to choose a different model you want to use for LLM inference. The `api_key_env` specifies the name of the API_KEY environment variable. For the default provider (XAI), the name of the environment varaiable is set to XAI_API_KEY
+You can also modify the `base_url` to point to your preferred LLM provider (make sure they are OpenAI supported), or `supported_models` to choose a different model you want to use for LLM inference. The `api_key_env` specifies the name of the API_KEY environment variable. As an example, for the provider XAI, the name of the environment varaiable is set to XAI_API_KEY
 
-3. Set the environment variable for the API_KEY. You can get the API KEY from XAI (https://console.x.ai/) or your preferred cloud provider. In Linux, you can usually do this with the following:
+3. Edit the  .env file which specifies the API Keys for all the providers. You need to get your own API key for each provider. As an example for XAI, you can get the API KEY at the URL https://console.x.ai/
+ Currently the .env file looks like:
 
-`export XAI_API_KEY=<Your XAI API Key>`
+```
+# Insert your XAI API Key below
+XAI_API_KEY="<Insert your XAI APi Key here"
+# Insert your Perplexity API Key below
+PPLX_API_KEY="<Insert your Perplexity Sonar API Key here>"
+```
 
 4. Now start the server using:
 

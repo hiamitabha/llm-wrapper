@@ -7,6 +7,7 @@ import asyncio
 import uvicorn
 
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Header, Request
 from fastapi.responses import StreamingResponse
 from datetime import datetime, timedelta
@@ -18,6 +19,8 @@ app = FastAPI(
     version="1.0.0",
     description="Unified API wrapper LLM providers"
 )
+
+load_dotenv()
 
 #Global dictionary of providers
 providers = dict()
@@ -122,6 +125,13 @@ class LLMProvider:
     def normalize_response(self, response: dict) -> dict:
         if "choices" not in response:
             response["choices"] = [{"message": {"role": "assistant", "content": ""}}]
+        elif self.name == "Perplexity Sonar":
+           choices = response.get("choices")
+           if choices and choices[0].get("delta"):
+               delta = choices[0]["delta"]
+               response["choices"] = [{"message": delta}]
+           else:
+               response["choices"] = [{"message": {"role": "assistant", "content": ""}}]
         response["created"] = response.get("created", int(time.time()))
         response["model"] = response.get("model", "unknown")
         return response
