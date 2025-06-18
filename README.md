@@ -40,6 +40,10 @@ You can also modify the `base_url` to point to your preferred LLM provider (make
  Currently the .env file looks like:
 
 ```
+# Insert your XAI API Key below
+XAI_API_KEY="<Insert your XAI APi Key here"
+# Insert your Perplexity API Key below
+PPLX_API_KEY="<Insert your Perplexity Sonar API Key here>"
 ```
 
 4. Now start the server using:
