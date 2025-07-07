@@ -5,7 +5,7 @@ import logging
 import time
 import asyncio
 import uvicorn
-
+import sqlite3
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Header, Request
@@ -130,7 +130,7 @@ class LLMProvider:
            choices = response.get("choices")
            if choices and choices[0].get("delta"):
                delta = choices[0]["delta"]
-               response["choices"] = [{"message": delta}]
+               response["choices"] = [{"index": 0, "delta": delta}]
            else:
                response["choices"] = [{"message": {"role": "assistant", "content": ""}}]
         response["created"] = response.get("created", int(time.time()))
@@ -179,6 +179,30 @@ def get_provider(model: str) -> LLMProvider:
         detail=f"Model {model} not supported"
     )
 
+
+def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
+    """Check if the token exists and is not expired. Returns (True, username) if valid, else (False, None)."""
+    if not token:
+        return False, None
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute("SELECT username, expiry FROM tokens WHERE token=?", (token,))
+    row = c.fetchone()
+    conn.close()
+    if row:
+        username, expiry = row
+        try:
+            expiry_dt = datetime.strptime(expiry, "%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            return False, None
+        if expiry_dt > datetime.now():
+            return True, username
+    return False, None
+
+@app.on_event("startup")
+def startup_event():
+    load_providers("./config.json")
+
 # ========== API Endpoints ==========
 @app.post("/v1/chat/completions")
 async def chat_endpoint(
@@ -186,6 +210,14 @@ async def chat_endpoint(
     payload: dict,
     authorization: Optional[str] = Header(None)
 ):
+    # Extract Bearer token
+    token = None
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    is_valid, username = is_token_valid(token)
+    if not is_valid:
+        raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
+
     model = payload.get("model", "")
     provider = get_provider(model)
     AnalyticsLogger().log_request(provider.get_name(), model)
@@ -203,5 +235,4 @@ async def chat_endpoint(
 # ========== Main Execution ==========
 if __name__ == "__main__":
     import uvicorn
-    load_providers("./config.json")
     uvicorn.run(app, host="0.0.0.0", port=8000)
