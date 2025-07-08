@@ -63,7 +63,8 @@ class LLMProvider:
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
         }
-        payload.update(self.payload_extra_options)
+        if self.payload_extra_options:
+            payload.update(self.payload_extra_options)
         
         if stream:
             return self._stream_completion(payload, headers)
