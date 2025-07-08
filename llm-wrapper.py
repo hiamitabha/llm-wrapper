@@ -5,7 +5,7 @@ import logging
 import time
 import asyncio
 import uvicorn
-
+import sqlite3
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Header, Request
@@ -40,7 +40,8 @@ class LLMProvider:
         self.logger = logging.getLogger(name)
         self.api_key = os.getenv(api_key_env)
         if not self.api_key:
-            raise ValueError("API Key is missing")
+            raise ValueError(f"API Key for provder {name} is missing."
+                             f"Please either provide the API Key, or edit the config.json file to exclude the provider")
 
     def get_name(self) -> str:
         """Get the name of the model
@@ -129,7 +130,7 @@ class LLMProvider:
            choices = response.get("choices")
            if choices and choices[0].get("delta"):
                delta = choices[0]["delta"]
-               response["choices"] = [{"message": delta}]
+               response["choices"] = [{"index": 0, "delta": delta}]
            else:
                response["choices"] = [{"message": {"role": "assistant", "content": ""}}]
         response["created"] = response.get("created", int(time.time()))
@@ -178,6 +179,47 @@ def get_provider(model: str) -> LLMProvider:
         detail=f"Model {model} not supported"
     )
 
+
+def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
+    """Check if the token exists, is not expired, and enforce rate limiting. Returns (True, username) if valid, else (False, None)."""
+    if not token:
+        return False, None
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute("SELECT username, expiry, request_count, rate_limit, last_request_date FROM tokens WHERE token=?", (token,))
+    row = c.fetchone()
+    if not row:
+        conn.close()
+        return False, None
+    username, expiry, request_count, rate_limit, last_request_date = row
+    try:
+        expiry_dt = datetime.strptime(expiry, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        conn.close()
+        return False, None
+    if expiry_dt <= datetime.now():
+        conn.close()
+        return False, None
+    # Rate limit enforcement
+    today = datetime.now().date().isoformat()
+    if last_request_date != today:
+        # Reset count for new day
+        request_count = 0
+        last_request_date = today
+    if request_count >= rate_limit:
+        conn.close()
+        # Special return for rate limit exceeded
+        return "rate_limited", username
+    # Increment request count and update last_request_date
+    c.execute("UPDATE tokens SET request_count=?, last_request_date=? WHERE token=?", (request_count + 1, today, token))
+    conn.commit()
+    conn.close()
+    return True, username
+
+@app.on_event("startup")
+def startup_event():
+    load_providers("./config.json")
+
 # ========== API Endpoints ==========
 @app.post("/v1/chat/completions")
 async def chat_endpoint(
@@ -185,6 +227,16 @@ async def chat_endpoint(
     payload: dict,
     authorization: Optional[str] = Header(None)
 ):
+    # Extract Bearer token
+    token = None
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    is_valid, username = is_token_valid(token)
+    if is_valid == "rate_limited":
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again tomorrow.")
+    if not is_valid:
+        raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
+
     model = payload.get("model", "")
     provider = get_provider(model)
     AnalyticsLogger().log_request(provider.get_name(), model)
@@ -202,5 +254,4 @@ async def chat_endpoint(
 # ========== Main Execution ==========
 if __name__ == "__main__":
     import uvicorn
-    load_providers("./config.json")
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -46,13 +46,19 @@ XAI_API_KEY="<Insert your XAI APi Key here"
 PPLX_API_KEY="<Insert your Perplexity Sonar API Key here>"
 ```
 
-4. Now start the server using:
+4. Before starting the server for the first time, create the token database (this only needs to be done once):
+
+`python3 tokens/manage_tokens.py list`
+
+This command will initialize the database file at `tokens/auth_tokens.db` with the required schema. You can then use the same script to add or manage tokens as needed.
+
+5. Now start the server using:
 
 `python3 llm-wrapper.py`
 
 This will start the llm wrapper on your localhost at http://0.0.0.0:8000
 
-5. Now on your app which needs to do LLM Inference, you can set the parameters for LLM inference as:
+6. Now on your app which needs to do LLM Inference, you can set the parameters for LLM inference as:
 API URL: http://localhost:8000/v1
 API Key: <Leave blank>
 Model Name: <Choose one of the models from the `supported_models` section of config.json
