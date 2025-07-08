@@ -181,23 +181,40 @@ def get_provider(model: str) -> LLMProvider:
 
 
 def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
-    """Check if the token exists and is not expired. Returns (True, username) if valid, else (False, None)."""
+    """Check if the token exists, is not expired, and enforce rate limiting. Returns (True, username) if valid, else (False, None)."""
     if not token:
         return False, None
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute("SELECT username, expiry FROM tokens WHERE token=?", (token,))
+    c.execute("SELECT username, expiry, request_count, rate_limit, last_request_date FROM tokens WHERE token=?", (token,))
     row = c.fetchone()
+    if not row:
+        conn.close()
+        return False, None
+    username, expiry, request_count, rate_limit, last_request_date = row
+    try:
+        expiry_dt = datetime.strptime(expiry, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        conn.close()
+        return False, None
+    if expiry_dt <= datetime.now():
+        conn.close()
+        return False, None
+    # Rate limit enforcement
+    today = datetime.now().date().isoformat()
+    if last_request_date != today:
+        # Reset count for new day
+        request_count = 0
+        last_request_date = today
+    if request_count >= rate_limit:
+        conn.close()
+        # Special return for rate limit exceeded
+        return "rate_limited", username
+    # Increment request count and update last_request_date
+    c.execute("UPDATE tokens SET request_count=?, last_request_date=? WHERE token=?", (request_count + 1, today, token))
+    conn.commit()
     conn.close()
-    if row:
-        username, expiry = row
-        try:
-            expiry_dt = datetime.strptime(expiry, "%Y-%m-%d %H:%M:%S")
-        except ValueError:
-            return False, None
-        if expiry_dt > datetime.now():
-            return True, username
-    return False, None
+    return True, username
 
 @app.on_event("startup")
 def startup_event():
@@ -215,6 +232,8 @@ async def chat_endpoint(
     if authorization and authorization.lower().startswith("bearer "):
         token = authorization[7:].strip()
     is_valid, username = is_token_valid(token)
+    if is_valid == "rate_limited":
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again tomorrow.")
     if not is_valid:
         raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
 
