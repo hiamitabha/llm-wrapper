@@ -106,7 +106,6 @@ class LLMProvider:
             async for chunk in response.aiter_lines():
                 processed = self.process_streaming_chunk(chunk)
                 if processed:
-                    print (processed)
                     yield processed
         except httpx.HTTPError as e:
             self.logger.error(f"Streaming error: {str(e)}")
