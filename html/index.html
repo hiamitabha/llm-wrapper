@@ -85,33 +85,45 @@
 </head>
 <body>
     <div class="container">
-        <h1>🚀 LLM Wrapper API Gateway</h1>
+        <h1>🚀 Knowledge for Your Vector Robot/h1>
         
         <div class="status">
             <strong>✅ Server Status: Running</strong><br>
-            Welcome to the LLM Wrapper API Gateway. This service routes your LLM inference requests to various cloud providers.
+            We implement the best knowledge for your Vector robot so that you can have wonderful conversations with it.
         </div>
-
-
 
         <div class="api-section">
             <h2>📡 API Endpoint</h2>
             <div class="endpoint">
                 <strong>POST /v1/chat/completions</strong>
             </div>
-            <p>This endpoint accepts OpenAI-compatible chat completion requests and routes them to configured LLM providers.</p>
+            <p>This endpoint accepts OpenAI-compatible chat completion requests.</p>
+        </div>
+
+        <div class="api-section">
+            <h2>Wirepod configuration</h2>
+            <p>Configure your Wirepod server according to the screenshot below:</p>
+            <img src="Wirepod-use case.png" alt="Wirepod Use Case Screenshot" style="max-width:100%;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin:20px 0;">
+        </div>
+
+        <div class="api-section">
+            <h2>Demonstration on a Vector Robot</h2>
+            <p>With our knowledge, you can make your Vector robot answer questions like shown in the video below:</p>
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;">
+                <iframe src="https://www.youtube.com/embed/q4w9ndn09mE" title="Vector Robot Demo" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;"></iframe>
+            </div>
         </div>
 
         <div class="api-section">
             <h2>🔧 Sample API Request</h2>
-            <p>Here's how to make a request to the LLM Wrapper:</p>
+            <p>Here's how to make an API request. Use this when you need to test our API.</p>
             
             <div class="code-block">
 curl -X POST "http://knowledge.learnwitharobot.com/v1/chat/completions" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
-    "model": "grok-4-latest",
+    "model": "sonar",
     "messages": [
       {
         "role": "user",
@@ -147,21 +159,15 @@ curl -X POST "http://knowledge.learnwitharobot.com/v1/chat/completions" \
             <div class="code-block">
 Authorization: Bearer YOUR_TOKEN_HERE
             </div>
-            <p>Tokens can be managed using the <code>tokens/manage_tokens.py</code> script.</p>
-        </div>
-
-        <div class="note">
-            <strong>💡 Note:</strong> This is a proxy service that routes your requests to various LLM providers. 
-            Make sure you have valid API keys configured in your environment variables and that your tokens 
-            are properly set up with appropriate rate limits.
+            <p>Tokens can be requested from the editor of www.learnwitharobot.com, Amitabha Banerjee. Use Substack to DM him.</p>
         </div>
 
         <div class="api-section">
             <h2>📊 Available Models</h2>
-            <p>Supported models depend on your configuration. Common models include:</p>
+            <p>Supported models are:</p>
             <ul>
-                <li><strong>XAI:</strong> grok-4-latest, grok-3-latest, grok-3-fast-latest</li>
-                <li><strong>Perplexity:</strong> sonar, sonar-pro, sonar-deep-research</li>
+                <li><strong>XAI:</strong> grok-4-latest, grok-3-latest</li>
+                <li><strong>Perplexity:</strong> sonar</li>
                 <li><strong>Sambanova:</strong> Meta-Llama-3.3-70B-Instruct</li>
             </ul>
         </div>
