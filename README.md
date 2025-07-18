@@ -68,6 +68,18 @@ API URL: http://localhost:8000/v1
 API Key: <Token created using Step 4>
 Model Name: <Choose one of the models from the `supported_models` section of config.json
 
+# Notes
+
+1. config.json is set up with two providers: XAI and Perplexity Sonar. If you want to use one provider, just delete teh corresponding lines. Commenting out doesn't work in a json file
+2. To make the server work in the background, the easiest way is to use nohup. So you can do:
+   `nohup python3 llm-wrapper.py&`
+and the server starts in the background and output is directed to nohup.out. This will ensure that the server keeps running even after you terminate your shell.
+3. In some systems, load_dotenv() does not load from the .env file because it is usable to find the correct location of the .env file. If you run into an error where the script is unable to locate the API keys, it implies that the .env is not locaded correctly. Specify the exact file path to the .env file in load_dotenv(). e.g.
+`load_dotenv("/home/amitabha/llm-wrapper/.env`
+4. Another alternative is to create a service file and use:
+   `systemctl start <service name>`
+to start the service.
+
 # Use case: Wirepod server for Vector robot
 
 The Wirepod server for the Vector robot uses LLMs to answer questions that you ask to the Vector robot. In essence, the LLM serves as a knowledge bank. You can use the following screenshot as a reference on how to make Wirepod connect to the llm-wrapper for making inference calls.The following screenshot can be used for reference. Note: Use the token created in Step 4 as the API Key.
