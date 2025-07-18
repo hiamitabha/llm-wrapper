@@ -1,0 +1,579 @@
+2025-07-12 07:35:51,603 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-12 07:35:53,756 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 07:39:28,094 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:41:08,623 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:42:52,217 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:43:23,150 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:43:23,441 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 07:51:11,796 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:51:12,130 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 07:52:30,095 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:52:30,406 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 07:53:05,078 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:53:05,257 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 07:53:59,199 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-12 07:54:00,988 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 07:54:57,085 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 07:54:57,364 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 08:02:17,542 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-12 08:02:17,731 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-12 08:04:12,576 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-12 08:04:14,323 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 07:24:43,595 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 07:24:45,819 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 07:32:24,457 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-13 07:32:25,005 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 07:37:35,374 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-13 07:37:35,653 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 07:39:36,471 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 07:39:38,795 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 07:41:45,608 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-07-13 07:41:46,326 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 08:00:45,313 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-13 08:00:45,658 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 15:29:41,298 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 15:29:43,174 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 15:30:14,674 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 15:30:16,593 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 15:33:15,821 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 15:33:17,791 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 16:53:01,333 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 16:53:02,899 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 16:54:46,385 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 16:54:48,467 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 16:55:43,765 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 16:55:45,716 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 16:57:31,746 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 16:57:34,152 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 16:59:06,189 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 16:59:08,103 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 17:29:44,677 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 17:29:46,464 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 18:25:31,436 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 18:25:33,621 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-13 19:30:09,800 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-13 19:30:11,575 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-17 06:55:39,757 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-17 06:55:40,553 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-17 06:58:33,672 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-17 06:58:34,169 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-17 07:07:45,256 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-17 07:07:45,485 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-17 07:08:04,975 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-17 07:08:05,160 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 07:19:24,410 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 07:19:25,469 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 07:19:47,686 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-18 07:19:48,241 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 07:20:25,872 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-18 07:20:28,058 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 18:32:09,046 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 18:32:09,825 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 18:37:35,212 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-18 18:37:37,347 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 18:38:09,299 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-07-18 18:38:10,731 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:12:21,976 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:12:23,149 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:12:43,339 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:12:44,286 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:13:00,158 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:13:01,039 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:13:29,710 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:13:31,263 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:14:22,447 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:14:23,332 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:15:11,071 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:15:12,739 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:15:35,364 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:15:37,120 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:16:42,085 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:16:43,769 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:17:00,626 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:17:02,270 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:17:23,944 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:17:25,633 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:18:54,524 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:18:56,317 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:19:14,677 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:19:16,336 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:19:31,649 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:19:33,347 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-18 21:20:01,340 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-18 21:20:03,052 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 03:38:50,193 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-22 03:38:51,344 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 03:40:17,499 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-22 03:40:18,259 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-24 07:32:05,094 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-24 07:32:06,124 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-25 07:08:04,032 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-07-25 07:08:04,779 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-25 07:08:23,057 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-07-25 07:08:23,603 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-25 07:12:35,056 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-07-25 07:12:35,548 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-25 07:13:03,820 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-07-25 07:13:05,260 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-25 07:14:26,141 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-07-25 07:14:28,052 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-29 17:51:46,373 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-29 17:51:46,393 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-29 17:51:46,412 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-29 17:51:46,477 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-29 17:51:46,747 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-07-29 17:51:46,760 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-07-29 17:51:46,985 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-07-29 17:51:47,050 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:15:00,696 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-30 07:15:01,210 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:15:43,256 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-30 07:15:43,703 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:19:59,264 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-30 07:20:00,166 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:24:33,695 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-30 07:24:34,701 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:24:55,049 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-30 07:24:55,929 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:29:09,934 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-30 07:29:10,969 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:30:37,190 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-07-30 07:30:38,201 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:34:18,443 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-30 07:34:18,782 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-30 07:35:58,346 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-07-30 07:35:58,871 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:32:33,097 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:32:33,488 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:34:33,964 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:34:34,525 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:35:11,195 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:35:11,377 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:37:02,809 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:37:03,095 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:37:44,139 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:37:44,319 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:38:35,987 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:38:36,172 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:39:35,372 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:39:35,551 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:40:30,740 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:40:31,003 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:47:24,996 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:47:25,302 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:49:22,708 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:49:22,901 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:51:00,737 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:51:00,921 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:51:33,671 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:51:33,891 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:52:03,852 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:52:04,024 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:52:51,696 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:52:51,902 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:54:37,265 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:54:37,564 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:55:21,747 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:55:21,933 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:56:14,523 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:56:14,708 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 07:59:09,145 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 07:59:09,523 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:00:21,369 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:00:21,581 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:00:58,806 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:00:59,284 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:01:34,280 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:01:34,456 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:02:13,285 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:02:13,481 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:02:52,392 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:02:52,749 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:03:23,206 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:03:23,455 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-31 08:03:56,884 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-07-31 08:03:57,165 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 00:41:44,522 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 00:41:47,143 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 00:43:10,592 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 00:43:12,304 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 01:10:55,544 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 01:10:57,587 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 01:25:00,606 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 01:25:05,755 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 01:33:54,416 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 01:33:55,994 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 01:36:26,034 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 01:36:28,107 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-01 01:49:49,235 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-01 01:49:51,016 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-03 23:05:50,462 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-03 23:05:52,698 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-03 23:06:30,872 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-03 23:06:37,646 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 20:23:55,536 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-06 20:23:58,081 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 21:13:19,796 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-06 21:13:21,952 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-07 07:18:01,012 - analytics - INFO - Request - Provider: Together AI, Model: openai/gpt-oss-120b
+2025-08-07 07:18:01,390 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2025-08-07 07:19:20,544 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-08-07 07:19:21,729 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-07 07:20:41,502 - analytics - INFO - Request - Provider: Together AI, Model: openai/gpt-oss-120b
+2025-08-07 07:20:42,303 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2025-08-08 07:25:56,314 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5
+2025-08-08 07:25:56,912 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-08-08 07:27:21,872 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 07:27:22,712 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 07:29:04,905 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5
+2025-08-08 07:29:05,373 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-08-08 07:29:41,952 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 07:29:42,867 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 07:32:05,980 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 07:32:06,768 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 07:32:52,281 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5
+2025-08-08 07:32:52,429 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-08-08 07:47:23,744 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5
+2025-08-08 07:47:49,304 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 07:49:44,441 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5
+2025-08-08 07:50:36,416 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 07:54:41,086 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 07:54:47,604 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 07:56:31,175 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 07:56:31,753 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:07:51,708 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 08:07:59,266 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:09:49,941 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 08:09:50,257 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:18:32,681 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 08:18:37,637 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:20:39,054 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 08:20:47,580 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:24:20,076 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 08:24:20,595 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:27:13,132 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-08 08:27:13,578 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 08:27:48,167 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 08:27:55,142 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:10:24,195 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 09:10:32,698 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:12:22,033 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5
+2025-08-08 09:13:13,126 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:14:08,259 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 09:14:19,264 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:15:41,557 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 09:15:56,970 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:16:45,393 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 09:16:51,817 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:17:20,710 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 09:17:28,723 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 09:18:00,430 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-08 09:18:09,716 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-08 10:27:19,394 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-08 10:27:21,768 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-10 07:50:19,300 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-10 07:50:27,518 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-10 07:50:44,972 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-10 07:50:54,892 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-10 07:55:08,719 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-10 07:55:12,733 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-10 07:55:29,689 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-10 07:55:33,327 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-10 07:55:59,959 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-10 07:56:03,897 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-10 08:41:09,428 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-08-10 08:41:10,093 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:19:11,428 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:19:13,427 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:28:03,975 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:28:05,602 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:30:43,134 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:30:44,893 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:32:17,217 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:32:19,953 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:32:31,158 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:32:33,081 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:38:58,604 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:39:02,353 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-11 22:44:32,243 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-11 22:44:33,862 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-12 12:22:35,921 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-12 12:22:38,996 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-12 12:23:03,721 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-12 12:23:06,206 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 06:52:10,229 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-16 06:52:13,516 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 06:57:02,249 - analytics - INFO - Request - Provider: Open AI, Model: gpt-5-nano
+2025-08-16 06:57:05,600 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 06:58:24,104 - analytics - INFO - Request - Provider: Open AI, Model: gpt-4.1-mini
+2025-08-16 06:58:24,465 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 07:02:57,520 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-08-16 07:02:58,053 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 07:04:36,647 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-08-16 07:04:38,214 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 07:05:39,852 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-08-16 07:05:41,824 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 07:07:02,106 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-08-16 07:07:06,040 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 07:07:42,094 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-08-16 07:07:43,330 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-18 14:09:38,254 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-18 14:09:40,732 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-21 06:50:34,947 - analytics - INFO - Request - Provider: Parallel AI, Model: speed
+2025-08-21 06:50:35,213 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 404 Not Found"
+2025-08-21 06:52:36,019 - analytics - INFO - Request - Provider: Parallel AI, Model: speed
+2025-08-21 06:52:36,145 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 19:33:01,601 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-08-22 19:33:03,239 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-22 19:33:37,472 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-08-22 19:33:38,507 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-22 19:33:38,790 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-08-22 19:33:38,932 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 21:41:47,570 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-22 21:41:50,010 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-22 21:43:22,610 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-22 21:43:24,303 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-22 21:44:10,650 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-22 21:44:12,464 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-22 21:46:28,571 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-22 21:46:30,773 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 11:34:11,397 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-23 11:34:13,815 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-26 17:08:08,551 - analytics - INFO - Request - Provider: Together AI, Model: moonshotai/Kimi-K2-Instruct
+2025-08-26 17:08:09,424 - httpx - INFO - HTTP Request: POST https://api.together.xyz/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-27 13:19:23,117 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-27 13:19:25,803 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-08-29 21:13:33,610 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-08-29 21:13:35,790 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-09-05 01:14:52,321 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-09-05 01:14:52,821 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-09-05 01:14:54,447 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-09-05 01:14:54,469 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-09-05 01:15:36,156 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-09-05 01:15:38,767 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-09-05 01:16:10,617 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-09-05 01:16:12,714 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-10-24 14:44:34,320 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-10-24 14:44:35,111 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-10-24 14:44:37,202 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-10-24 14:44:37,403 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:02:59,695 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 08:03:02,367 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:06:23,176 - analytics - INFO - Request - Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-11-27 08:06:23,506 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:08:12,502 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-11-27 08:08:13,027 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:08:46,105 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 08:08:47,675 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:11:07,252 - analytics - INFO - Request - Provider: Parallel AI, Model: speed
+2025-11-27 08:11:07,432 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 404 Not Found"
+2025-11-27 08:12:05,906 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-11-27 08:12:06,430 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:15:01,953 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 08:15:04,249 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:36:17,071 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 08:36:18,757 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 08:39:04,727 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 08:39:07,032 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 09:35:20,254 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 09:35:21,929 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 09:35:58,730 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 09:36:01,315 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 09:37:55,397 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 09:37:57,943 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 12:23:38,071 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 12:23:39,519 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 12:35:49,131 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 12:35:50,872 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 12:44:56,990 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 12:44:58,553 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 12:45:50,284 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 12:45:51,974 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-27 13:58:59,565 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-27 13:59:01,516 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-29 12:26:30,315 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-29 12:26:32,033 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-29 16:30:45,162 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-29 16:30:47,525 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-29 19:18:05,093 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-29 19:18:07,789 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-29 19:19:24,355 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-29 19:19:26,323 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-30 08:27:39,882 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-30 08:27:42,043 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-30 08:30:13,336 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-30 08:30:15,471 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-30 15:25:26,456 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-30 15:25:28,614 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-11-30 15:26:24,796 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-11-30 15:26:26,473 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-02 09:39:12,837 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-02 09:39:14,844 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-02 16:39:04,097 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-02 16:39:06,025 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-02 17:11:21,496 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-02 17:11:23,701 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 07:47:09,242 - analytics - INFO - Request - Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-03 07:47:09,471 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 07:49:44,084 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-12-03 07:49:44,472 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 08:07:09,810 - analytics - INFO - Request - Provider: XAI, Model: grok-4-1-fast-reasoning
+2025-12-03 08:07:11,728 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 08:09:21,438 - analytics - INFO - Request - Provider: XAI, Model: grok-4-1-fast-reasoning
+2025-12-03 08:09:22,806 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 12:15:12,912 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-03 12:15:14,847 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 12:16:11,641 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-03 12:16:15,241 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 12:20:03,830 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-03 12:20:07,296 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 15:53:14,323 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-03 15:53:15,980 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 17:05:19,674 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-03 17:05:21,351 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-03 17:33:39,003 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-03 17:33:41,221 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-04 09:49:13,339 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-04 09:49:15,529 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-04 14:39:41,052 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-04 14:39:42,523 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-04 18:40:29,697 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-04 18:40:31,522 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-04 18:49:39,288 - analytics - INFO - Request - Provider: Perplexity Sonar, Model: sonar
+2025-12-04 18:49:40,935 - httpx - INFO - HTTP Request: POST https://api.perplexity.ai/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 08:17:48,936 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-12-05 08:17:53,780 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 08:18:03,362 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-12-05 08:18:04,513 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 08:19:31,659 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-12-05 08:19:33,532 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 08:20:32,512 - analytics - INFO - Request - Provider: XAI, Model: grok-4-latest
+2025-12-05 08:20:33,545 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:35:30,109 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:35:30,458 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:36:39,225 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:36:39,302 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 400 BAD REQUEST"
+2025-12-06 07:36:39,303 - Sambanova AI - ERROR - Error parsing JSON response: Expecting value: line 1 column 1 (char 0)
+2025-12-06 07:37:30,687 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:37:30,747 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 400 BAD REQUEST"
+2025-12-06 07:37:30,749 - Sambanova AI - ERROR - Error parsing JSON response: Expecting value: line 1 column 1 (char 0)
+2025-12-06 07:38:50,753 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:38:51,331 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:39:19,093 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:39:19,645 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 400 BAD REQUEST"
+2025-12-06 07:39:19,655 - Sambanova AI - ERROR - Error parsing JSON response: Expecting value: line 1 column 1 (char 0)
+2025-12-06 07:39:23,703 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:39:24,091 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 400 BAD REQUEST"
+2025-12-06 07:39:24,101 - Sambanova AI - ERROR - Error parsing JSON response: Expecting value: line 1 column 1 (char 0)
+2025-12-06 07:39:32,099 - analytics - INFO - Request - Username: test Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:39:32,585 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:41:06,809 - analytics - INFO - Request - Username: test Provider: Parallel AI, Model: speed
+2025-12-06 07:41:09,502 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:49:59,299 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:49:59,801 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:50:18,549 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: Meta-Llama-3.3-70B-Instruct
+2025-12-06 07:50:19,002 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:51:17,540 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-12-06 07:51:17,796 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:52:02,084 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-12-06 07:52:02,246 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:52:54,341 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-12-06 07:52:56,276 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:53:08,689 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-12-06 07:53:08,867 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:54:25,572 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-12-06 07:54:26,785 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:56:25,132 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Sambanova AI, Model: DeepSeek-V3-0324
+2025-12-06 07:56:25,360 - httpx - INFO - HTTP Request: POST https://api.sambanova.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-06 07:57:26,372 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2025-12-06 07:57:29,295 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-06 08:16:54,487 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2025-12-06 08:16:57,084 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-06 08:17:43,697 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2025-12-06 08:17:46,979 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-06 08:20:46,360 - analytics - INFO - Request - Username: test Provider: Parallel AI, Model: speed
+2025-12-06 08:20:48,808 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 19:28:36,906 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 19:28:40,205 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 19:29:47,175 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 19:29:52,995 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 19:32:47,692 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 19:32:50,994 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 19:36:51,021 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 19:36:56,287 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 19:37:17,025 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 19:37:20,653 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 19:58:39,756 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 19:58:42,736 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:02:05,519 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:02:08,993 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:04:06,642 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:04:08,702 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:05:05,937 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:05:08,816 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:05:52,554 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:05:55,487 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:10:36,581 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:10:39,236 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:11:45,022 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:11:47,749 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:12:24,027 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:12:26,701 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:12:57,694 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:13:00,815 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:22:09,241 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:22:12,255 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:23:09,115 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:23:12,374 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:24:06,749 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:24:09,729 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:25:28,669 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:25:31,463 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:27:00,331 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:27:03,613 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:27:46,941 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:27:51,397 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 20:40:45,161 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 20:40:49,086 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 21:28:24,289 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 21:28:28,042 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 21:30:03,109 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 21:30:06,307 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 21:30:42,442 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 21:30:46,068 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-23 21:33:42,577 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-23 21:33:45,477 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-25 14:04:24,997 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2025-12-25 14:04:27,970 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-28 12:26:07,687 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-28 12:26:08,266 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 422 unknown"
+2025-12-29 13:09:47,207 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:09:49,882 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:10:44,779 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:10:48,222 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:13:36,320 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:13:39,203 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:15:34,753 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:15:37,665 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:16:30,693 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:16:34,422 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:28:32,734 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:28:35,445 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:35:19,513 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:35:23,473 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:37:02,116 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:37:04,752 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:37:48,135 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:37:50,803 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2025-12-29 13:44:08,500 - analytics - INFO - Request - Username: Meeresritter@aol.com Provider: Parallel AI, Model: speed
+2025-12-29 13:44:12,687 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2026-01-04 08:10:57,260 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2026-01-04 08:10:59,925 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2026-01-04 08:24:54,104 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2026-01-04 08:24:56,591 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2026-01-04 08:25:34,815 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2026-01-04 08:25:37,756 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2026-01-04 08:26:23,777 - analytics - INFO - Request - Username: hiamitabha@gmail.com Provider: Parallel AI, Model: speed
+2026-01-04 08:26:25,950 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"
+2026-01-09 23:10:14,653 - analytics - INFO - Request - Username: brt@me.com Provider: Parallel AI, Model: speed
+2026-01-09 23:10:17,504 - httpx - INFO - HTTP Request: POST https://api.parallel.ai//chat/completions "HTTP/1.1 200 OK"

@@ -16,8 +16,7 @@
         "name": "Perplexity Sonar",
         "base_url": "https://api.perplexity.ai",
         "api_key_env": "PPLX_API_KEY",
-        "supported_models": ["sonar", "sonar-pro", "sonar-deep-research",
-                             "sonar-reasoning-pro", "sonar-reasoning"],
+        "supported_models": ["sonar", "sonar-pro"],
         "payload_extra_parameters": {
             "search_recency_filter": "week"
         }
@@ -26,6 +25,12 @@
         "name": "Sambanova AI",
         "base_url": "https://api.sambanova.ai/v1",
         "api_key_env": "SAMBANOVA_API_KEY",
-        "supported_models": ["Meta-Llama-3.3-70B-Instruct"]
+        "supported_models": ["DeepSeek-V3-0324"]
+    },
+    "together": {
+        "name": "Together AI",
+        "base_url": "https://api.together.xyz/v1",
+        "api_key_env": "TOGETHER_API_KEY",
+        "supported_models": ["moonshotai/Kimi-K2-Instruct"]
     }
 }
