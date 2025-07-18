@@ -3,7 +3,7 @@
         "name": "XAI",
         "base_url": "https://api.x.ai/v1",
         "api_key_env": "XAI_API_KEY",
-        "supported_models": ["grok-3-latest","grok-3-fast-latest",
+        "supported_models": ["grok-4-latest", "grok-3-latest","grok-3-fast-latest",
                              "grok-3-mini-latest", "grok-2-latest"],
         "payload_extra_parameters": {
             "search_parameters": {
@@ -21,5 +21,11 @@
         "payload_extra_parameters": {
             "search_recency_filter": "week"
         }
+    },
+    "sambanova": {
+        "name": "Sambanova AI",
+        "base_url": "https://api.sambanova.ai/v1",
+        "api_key_env": "SAMBANOVA_API_KEY",
+        "supported_models": ["Meta-Llama-3.3-70B-Instruct"]
     }
 }

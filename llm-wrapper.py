@@ -63,7 +63,8 @@ class LLMProvider:
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
         }
-        payload.update(self.payload_extra_options)
+        if self.payload_extra_options:
+            payload.update(self.payload_extra_options)
         
         if stream:
             return self._stream_completion(payload, headers)
@@ -133,7 +134,7 @@ class LLMProvider:
                response["choices"] = [{"index": 0, "delta": delta}]
            else:
                response["choices"] = [{"message": {"role": "assistant", "content": ""}}]
-        response["created"] = response.get("created", int(time.time()))
+        response["created"] = int(time.time())
         response["model"] = response.get("model", "unknown")
         return response
 
@@ -186,12 +187,12 @@ def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
         return False, None
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute("SELECT username, expiry, request_count, rate_limit, last_request_date FROM tokens WHERE token=?", (token,))
+    c.execute("SELECT username, expiry, request_count, rate_limit, last_request_date, lifetime_requests FROM tokens WHERE token=?", (token,))
     row = c.fetchone()
     if not row:
         conn.close()
         return False, None
-    username, expiry, request_count, rate_limit, last_request_date = row
+    username, expiry, request_count, rate_limit, last_request_date, lifetime_requests = row
     try:
         expiry_dt = datetime.strptime(expiry, "%Y-%m-%d %H:%M:%S")
     except ValueError:
@@ -210,8 +211,9 @@ def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
         conn.close()
         # Special return for rate limit exceeded
         return "rate_limited", username
-    # Increment request count and update last_request_date
-    c.execute("UPDATE tokens SET request_count=?, last_request_date=? WHERE token=?", (request_count + 1, today, token))
+    # Increment request count, lifetime requests, and update last_request_date
+    c.execute("UPDATE tokens SET request_count=?, last_request_date=?, lifetime_requests=? WHERE token=?", 
+              (request_count + 1, today, lifetime_requests + 1, token))
     conn.commit()
     conn.close()
     return True, username
@@ -250,8 +252,20 @@ async def chat_endpoint(
         response = provider.chat_completion(payload, False)
         return response
 
+@app.get("/")
+async def root():
+    """Serve the default HTML page for the LLM wrapper."""
+    try:
+        with open("html/index.html", "r", encoding="utf-8") as f:
+            html_content = f.read()
+        return StreamingResponse(iter([html_content]), media_type="text/html")
+    except FileNotFoundError:
+        return StreamingResponse(
+            iter(["<h1>LLM Wrapper API Gateway</h1><p>HTML file not found. Please check the html/index.html file.</p>"]), 
+            media_type="text/html"
+        )
 
 # ========== Main Execution ==========
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
