@@ -1,6 +1,8 @@
 # llm-wrapper
 llm-wrapper is built to intercept calls for inference on Large Language Models (LLMs) and re-route the calls to customized cloud providers with customized options and parameters. In essence, you hack the LLM inference API call made by your application, without actually touching the application.
 
+An instance of llm-wrapper is running at: http://knowledge.learnwitharobot.com
+
 # Reasons to use llm-wrapper
 llm-wrapper can be useful in the following scenarios:
 
