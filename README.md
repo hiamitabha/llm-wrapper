@@ -52,20 +52,25 @@ PPLX_API_KEY="<Insert your Perplexity Sonar API Key here>"
 
 This command will initialize the database file at `tokens/auth_tokens.db` with the required schema. You can then use the same script to add or manage tokens as needed.
 
+To add a new token use:
+`python3 tokens/manage_tokens.py add --username <username> --expiry <expiry date> --rate-limit <rate-limit>`
+
+You can now see the token with `python3 tokens/manage_tokens.py list`
+
 5. Now start the server using:
 
 `python3 llm-wrapper.py`
 
-This will start the llm wrapper on your localhost at http://0.0.0.0:8000
+This will start the llm wrapper on your localhost at http://0.0.0.0:8000 and use it as your API Key
 
 6. Now on your app which needs to do LLM Inference, you can set the parameters for LLM inference as:
 API URL: http://localhost:8000/v1
-API Key: <Leave blank>
+API Key: <Token created using Step 4>
 Model Name: <Choose one of the models from the `supported_models` section of config.json
 
 # Use case: Wirepod server for Vector robot
 
-The Wirepod server for the Vector robot uses LLMs to answer questions that you ask to the Vector robot. In essence, the LLM serves as a knowledge bank. You can use the following screenshot as a reference on how to make Wirepod connect to the llm-wrapper for making inference calls.The following screenshot can be used for reference.
+The Wirepod server for the Vector robot uses LLMs to answer questions that you ask to the Vector robot. In essence, the LLM serves as a knowledge bank. You can use the following screenshot as a reference on how to make Wirepod connect to the llm-wrapper for making inference calls.The following screenshot can be used for reference. Note: Use the token created in Step 4 as the API Key.
 ![Wirepod-use case](https://github.com/user-attachments/assets/f5dd3bde-3974-4a69-bd13-ae4ee8c2a818)
 
 Now, you can ask Vector about news, and get a response from him. An example is available at: https://youtu.be/FTCZbYjh3oc
