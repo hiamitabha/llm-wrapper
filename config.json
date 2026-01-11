@@ -3,7 +3,7 @@
         "name": "XAI",
         "base_url": "https://api.x.ai/v1",
         "api_key_env": "XAI_API_KEY",
-        "supported_models": ["grok-4-latest", "grok-3-latest","grok-3-fast-latest",
+        "supported_models": ["grok-4-1-fast-reasoning", "grok-4-latest", "grok-3-latest","grok-3-fast-latest",
                              "grok-3-mini-latest", "grok-2-latest"],
         "payload_extra_parameters": {
             "search_parameters": {
@@ -31,6 +31,18 @@
         "name": "Together AI",
         "base_url": "https://api.together.xyz/v1",
         "api_key_env": "TOGETHER_API_KEY",
-        "supported_models": ["moonshotai/Kimi-K2-Instruct"]
+        "supported_models": ["moonshotai/Kimi-K2-Instruct", "openai/gpt-oss-120b"]
+    },
+    "openai": {
+        "name": "Open AI",
+        "base_url": "https://api.openai.com/v1",
+        "api_key_env": "OPENAI_API_KEY",
+        "supported_models": ["gpt-4.1-mini"]
+    },
+    "parallelai": {
+        "name": "Parallel AI",
+        "base_url": "https://api.parallel.ai/",
+        "api_key_env": "PARALLELAI_API_KEY",
+        "supported_models": ["speed"]
     }
 }

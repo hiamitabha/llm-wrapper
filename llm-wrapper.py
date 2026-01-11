@@ -119,7 +119,10 @@ class LLMProvider:
             try:
                 parsed = json.loads(data)
                 normalized = self.normalize_response(parsed)
-                return f"data: {json.dumps(normalized)}\n\n"
+                if normalized:
+                    return f"data: {json.dumps(normalized)}\n\n"
+                else:
+                    return None
             except json.JSONDecodeError:
                 return None
         return None
@@ -133,7 +136,7 @@ class LLMProvider:
                delta = choices[0]["delta"]
                response["choices"] = [{"index": 0, "delta": delta}]
            else:
-               response["choices"] = [{"message": {"role": "assistant", "content": ""}}]
+               return None
         response["created"] = int(time.time())
         response["model"] = response.get("model", "unknown")
         return response
@@ -148,10 +151,8 @@ class AnalyticsLogger:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
     
-    def log_request(self, provider: str, model: str):
-        self.logger.info(
-            f"Request - Provider: {provider}, Model: {model}"
-        )
+    def log_request(self, username: str, provider: str, model: str):
+        self.logger.info(f"Request - Username: {username} Provider: {provider}, Model: {model}")
 
 def load_providers(config_file: str):
     global providers
@@ -241,7 +242,7 @@ async def chat_endpoint(
 
     model = payload.get("model", "")
     provider = get_provider(model)
-    AnalyticsLogger().log_request(provider.get_name(), model)
+    AnalyticsLogger().log_request(username, provider.get_name(), model)
    
     if payload.get("stream") == True:
         return StreamingResponse(

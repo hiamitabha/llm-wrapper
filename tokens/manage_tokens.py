@@ -64,13 +64,13 @@ def add_token(username, expiry, rate_limit=15):
     print(f"Generated token: {token}")
     return token
 
-def delete_token(token):
+def update_expiry_date(username):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute('DELETE FROM tokens WHERE token=?', (token,))
+    c.execute(f"UPDATE tokens SET expiry='2026-12-31 00:00:00' WHERE username='{username}'")
     conn.commit()
     conn.close()
-    print(f"Token '{token}' deleted (if it existed).")
+    return
 
 def list_tokens():
     conn = sqlite3.connect(DB_PATH)
@@ -106,6 +106,10 @@ def main():
     # Modify
     modify_parser = subparsers.add_parser('modify', help='Modify database schema')
 
+    # Update
+    update_parser = subparsers.add_parser('update', help='Update table')
+    update_parser.add_argument('--username', required=True, help='Username')
+
     args = parser.parse_args()
     init_db()
     if args.command == 'add':
@@ -116,6 +120,8 @@ def main():
         list_tokens()
     elif args.command == 'modify':
         modify_db()
+    elif args.command == 'update':
+        update_expiry_date(args.username)
 
 if __name__ == "__main__":
     main() 
