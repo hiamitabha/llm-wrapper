@@ -9,17 +9,17 @@ class TestChatCompletionsAPI(unittest.TestCase):
            :param set_streaming Set to False if you wish to test non-streaming mode
         """
         # Set API endpoint URL
-        url = "http://localhost:8000/v1/chat/completions"
+        url = "http://localhost/v1/chat/completions"
 
         # Set API request headers
         headers = {
-            "Authorization": "Bearer", #Note that we are running without an authorization token
+            "Authorization": "Bearer", #Remove authoriation token
             "Content-Type": "application/json"
         }
 
         # Set API request data
         data = {
-            "model": "grok-3-latest",
+            "model": "Meta-Llama-3.3-70B-Instruct",
             "messages": [{"role": "user", "content": "Give me the top news headlines in the last one day"}],
             "stream": set_streaming
         }
