@@ -13,7 +13,7 @@ class TestChatCompletionsAPI(unittest.TestCase):
 
         # Set API request headers
         headers = {
-            "Authorization": "Bearer Ps3JdWeVJpcJdIG33pCeXZcBvcy4NvQz",
+            "Authorization": "Bearer", #Remove authoriation token
             "Content-Type": "application/json"
         }
 
