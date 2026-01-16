@@ -70,6 +70,19 @@ API URL: http://localhost:8000/v1
 API Key: <Token created using Step 4>
 Model Name: <Choose one of the models from the `supported_models` section of config.json
 
+# Parallel Monitor (offline setup)
+
+This repo includes an **offline** script to create a Parallel Monitor (not integrated into `llm-wrapper.py`).
+
+Per the Monitor API Quickstart, monitor creation is done via `POST https://api.parallel.ai/v1alpha/monitors` with `x-api-key`, `query`, `cadence`, and a `webhook` configuration. See: https://docs.parallel.ai/monitor-api/monitor-quickstart
+
+1. Export your API key:
+`export PARALLEL_API_KEY="..."`
+
+2. Create a monitor:
+
+`python3 monitor/create_monitor.py --query "Extract recent news about quantum in AI" --cadence daily --webhook_url "https://YOUR_DOMAIN/webhooks/parallel-monitor" --event_types "monitor.event.detected" --metadata_json '{"key":"value"}'`
+
 # Notes
 
 1. config.json is set up with two providers: XAI and Perplexity Sonar. If you want to use one provider, just delete teh corresponding lines. Commenting out doesn't work in a json file

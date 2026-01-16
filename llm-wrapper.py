@@ -13,6 +13,13 @@ from fastapi.responses import StreamingResponse
 from datetime import datetime, timedelta
 from typing import AsyncGenerator, Optional, List, Dict
 
+from monitor.manage_monitor_db import (
+    init_db as init_monitor_db,
+    save_event_group,
+    fetch_unprocessed_event_groups,
+    mark_event_group_processed,
+)
+
 # Initialize FastAPI application
 app = FastAPI(
     title="LLM Proxy API",
@@ -25,6 +32,7 @@ load_dotenv()
 #Global dictionary of providers
 providers = dict()
 
+PARALLEL_API_BASE = "https://api.parallel.ai/v1alpha"
 # ========== Core LLM Provider Class ==========
 class LLMProvider:
     def __init__(self, name: str, base_url: str, api_key_env: str,
@@ -154,6 +162,7 @@ class AnalyticsLogger:
     def log_request(self, username: str, provider: str, model: str):
         self.logger.info(f"Request - Username: {username} Provider: {provider}, Model: {model}")
 
+
 def load_providers(config_file: str):
     global providers
     with open(config_file, 'r') as f:
@@ -222,6 +231,7 @@ def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
 @app.on_event("startup")
 def startup_event():
     load_providers("./config.json")
+    init_monitor_db()
 
 # ========== API Endpoints ==========
 @app.post("/v1/chat/completions")
@@ -265,6 +275,81 @@ async def root():
             iter(["<h1>LLM Wrapper API Gateway</h1><p>HTML file not found. Please check the html/index.html file.</p>"]), 
             media_type="text/html"
         )
+
+
+@app.post("/webhooks/parallel-monitor")
+async def parallel_monitor_webhook(request: Request):
+    """Webhook receiver for Parallel Monitor events. Stores event_group_ids for later retrieval."""
+    payload = await request.json()
+    data = payload.get("data", {})
+    event_info = data.get("event", {})
+    event_group_id = event_info.get("event_group_id")
+    monitor_id = data.get("monitor_id")
+    metadata = data.get("metadata")
+
+    if not event_group_id or not monitor_id:
+        raise HTTPException(status_code=400, detail="Missing monitor_id or event_group_id in webhook payload.")
+
+    save_event_group(monitor_id, event_group_id, metadata)
+    return {"status": "stored", "event_group_id": event_group_id}
+
+
+async def stream_monitor_events() -> AsyncGenerator[str, None]:
+    """Stream stored monitor events to the client in SSE format."""
+    api_key = os.getenv("PARALLEL_API_KEY")
+    if not api_key:
+        yield "data: {\"error\":\"PARALLEL_API_KEY not set\"}\n\n"
+        yield "data: [DONE]\n\n"
+        return
+
+    event_groups = fetch_unprocessed_event_groups()
+    if not event_groups:
+        yield "data: {\"info\":\"No pending monitor events\"}\n\n"
+        yield "data: [DONE]\n\n"
+        return
+
+    headers = {
+        "x-api-key": api_key
+    }
+
+    async with httpx.AsyncClient(timeout=30) as client:
+        for group in event_groups:
+            monitor_id = group["monitor_id"]
+            event_group_id = group["event_group_id"]
+            url = f"{PARALLEL_API_BASE}/monitors/{monitor_id}/event_groups/{event_group_id}"
+            try:
+                response = await client.get(url, headers=headers)
+                response.raise_for_status()
+                events_payload = response.json()
+                for event in events_payload.get("events", []):
+                    message = {
+                        "monitor_id": monitor_id,
+                        "event_group_id": event_group_id,
+                        "event": event,
+                        "metadata": json.loads(group["metadata"]) if group.get("metadata") else None,
+                        "received_at": group["received_at"]
+                    }
+                    yield f"data: {json.dumps(message)}\n\n"
+                mark_event_group_processed(event_group_id)
+            except httpx.HTTPError as exc:
+                error_message = {"error": f"Failed to fetch events for {event_group_id}", "detail": str(exc)}
+                yield f"data: {json.dumps(error_message)}\n\n"
+    yield "data: [DONE]\n\n"
+
+
+@app.get("/update/chat/completions")
+async def monitor_updates_endpoint(authorization: Optional[str] = Header(None)):
+    """Expose monitor updates as an SSE stream. Requires valid bearer token."""
+    token = None
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    is_valid, _ = is_token_valid(token)
+    if is_valid == "rate_limited":
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again tomorrow.")
+    if not is_valid:
+        raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
+
+    return StreamingResponse(stream_monitor_events(), media_type="text/event-stream")
 
 # ========== Main Execution ==========
 if __name__ == "__main__":
