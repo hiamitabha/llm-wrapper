@@ -9,7 +9,7 @@ import sqlite3
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Header, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 from datetime import datetime, timedelta
 from typing import AsyncGenerator, Optional, List, Dict
 
@@ -162,7 +162,6 @@ class AnalyticsLogger:
     def log_request(self, username: str, provider: str, model: str):
         self.logger.info(f"Request - Username: {username} Provider: {provider}, Model: {model}")
 
-
 def load_providers(config_file: str):
     global providers
     with open(config_file, 'r') as f:
@@ -231,7 +230,6 @@ def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
 @app.on_event("startup")
 def startup_event():
     load_providers("./config.json")
-    init_monitor_db()
 
 # ========== API Endpoints ==========
 @app.post("/v1/chat/completions")
@@ -264,7 +262,7 @@ async def chat_endpoint(
         return response
 
 @app.get("/")
-async def root():
+async def serve_default_html():
     """Serve the default HTML page for the LLM wrapper."""
     try:
         with open("html/index.html", "r", encoding="utf-8") as f:
@@ -279,19 +277,42 @@ async def root():
 
 @app.post("/webhooks/parallel-monitor")
 async def parallel_monitor_webhook(request: Request):
-    """Webhook receiver for Parallel Monitor events. Stores event_group_ids for later retrieval."""
-    payload = await request.json()
-    data = payload.get("data", {})
-    event_info = data.get("event", {})
-    event_group_id = event_info.get("event_group_id")
-    monitor_id = data.get("monitor_id")
-    metadata = data.get("metadata")
+    """Webhook receiver for Parallel Monitor events. Stores event_group_ids for later retrieval.
 
-    if not event_group_id or not monitor_id:
-        raise HTTPException(status_code=400, detail="Missing monitor_id or event_group_id in webhook payload.")
+    Always returns HTTP 200 to acknowledge receipt per Parallel AI webhook best practices.
+    Any other status code will trigger retries.
+    Reference: https://docs.parallel.ai/resources/webhook-setup
+    """
+    try:
+        payload = await request.json()
+        data = payload.get("data", {})
+        event_info = data.get("event", {})
+        event_group_id = event_info.get("event_group_id")
+        monitor_id = data.get("monitor_id")
+        metadata = data.get("metadata")
 
-    save_event_group(monitor_id, event_group_id, metadata)
-    return {"status": "stored", "event_group_id": event_group_id}
+        if not event_group_id or not monitor_id:
+            # Log error but still return 200 to acknowledge receipt (prevents retries)
+            logger = logging.getLogger("webhook")
+            logger.warning(f"Missing monitor_id or event_group_id in webhook payload: {payload}")
+            return JSONResponse(
+                status_code=200,
+                content={"status": "received", "error": "Missing monitor_id or event_group_id"}
+            )
+
+        save_event_group(monitor_id, event_group_id, metadata)
+        return JSONResponse(
+            status_code=200,
+            content={"status": "stored", "event_group_id": event_group_id}
+        )
+    except Exception as e:
+        # Log error but return 200 to acknowledge receipt and prevent retries
+        logger = logging.getLogger("webhook")
+        logger.error(f"Error processing webhook: {str(e)}", exc_info=True)
+        return JSONResponse(
+            status_code=200,
+            content={"status": "received", "error": "Internal processing error"}
+        )
 
 
 async def stream_monitor_events() -> AsyncGenerator[str, None]:
