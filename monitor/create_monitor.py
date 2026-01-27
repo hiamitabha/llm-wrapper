@@ -1,9 +1,11 @@
 import argparse
 import json
 import os
+import sys
 from typing import Optional, Dict, Any, List
 
 import httpx
+from monitor.manage_monitor_db import register_monitor
 
 
 PARALLEL_API_BASE = "https://api.parallel.ai/v1alpha"
@@ -46,6 +48,11 @@ def create_monitor(
 
 def main():
     parser = argparse.ArgumentParser(description="Create a Parallel Monitor (offline setup).")
+    parser.add_argument(
+        "--username",
+        required=True,
+        help="Username owning this monitor (will be placed into webhook metadata)",
+    )
     parser.add_argument("--query", required=True, help="Natural language monitor query")
     parser.add_argument(
         "--cadence",
@@ -77,6 +84,9 @@ def main():
         raise SystemExit(f"Missing API key env var: {args.api_key_env}")
 
     metadata = json.loads(args.metadata_json) if args.metadata_json else None
+    metadata = metadata or {}
+    # Ensure webhook payload echoes username so the server can store events per user.
+    metadata["username"] = args.username
     event_types = [s.strip() for s in args.event_types.split(",") if s.strip()]
 
     created = create_monitor(
@@ -87,6 +97,18 @@ def main():
         event_types=event_types,
         metadata=metadata,
     )
+    
+    # Register the monitor_id -> username mapping so webhooks can look up username
+    monitor_id = created.get("monitor_id")
+    if monitor_id:
+        registered = register_monitor(args.username, monitor_id)
+        if registered:
+            print(f"Registered monitor {monitor_id} for user {args.username}", file=sys.stderr)
+        else:
+            print(f"Warning: Could not register monitor {monitor_id} (may already be registered)", file=sys.stderr)
+    else:
+        print("Warning: No monitor_id in response, cannot register monitor", file=sys.stderr)
+    
     print(json.dumps(created, indent=2))
 
 
