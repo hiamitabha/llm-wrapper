@@ -18,6 +18,7 @@ from monitor.manage_monitor_db import (
     save_event_group,
     fetch_unprocessed_event_groups,
     mark_event_group_processed,
+    get_username_by_monitor_id,
 )
 
 # Initialize FastAPI application
@@ -231,6 +232,19 @@ def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
 def startup_event():
     load_providers("./config.json")
 
+def contains_update_keywords(messages: List[dict]) -> bool:
+    """Check if any message content contains update-related keywords."""
+    update_keywords = ["update", "updates", "news", "latest", "recent", "new", "changes", "monitor"]
+
+    for message in messages:
+        content = message.get("content", "")
+        if isinstance(content, str):
+            content_lower = content.lower()
+            if any(keyword in content_lower for keyword in update_keywords):
+                return True
+    return False
+
+
 # ========== API Endpoints ==========
 @app.post("/v1/chat/completions")
 async def chat_endpoint(
@@ -247,8 +261,16 @@ async def chat_endpoint(
         raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again tomorrow.")
     if not is_valid:
         raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
-
     model = payload.get("model", "")
+    messages = payload.get("messages", [])
+    # Check if this is a monitor updates request: model="speed" and contains update keywords
+    if model.lower() == "speed" and contains_update_keywords(messages):
+        # Route to monitor events stream
+        return StreamingResponse(
+            stream_monitor_events(username),
+            media_type="text/event-stream"
+        )
+    # Otherwise, route to normal LLM provider
     provider = get_provider(model)
     AnalyticsLogger().log_request(username, provider.get_name(), model)
    
@@ -282,6 +304,8 @@ async def parallel_monitor_webhook(request: Request):
     Always returns HTTP 200 to acknowledge receipt per Parallel AI webhook best practices.
     Any other status code will trigger retries.
     Reference: https://docs.parallel.ai/resources/webhook-setup
+    The username is looked up from the monitor_event_groups table using the monitor_id,
+    since webhook payloads don't include username information.
     """
     try:
         payload = await request.json()
@@ -300,11 +324,32 @@ async def parallel_monitor_webhook(request: Request):
                 content={"status": "received", "error": "Missing monitor_id or event_group_id"}
             )
 
-        save_event_group(monitor_id, event_group_id, metadata)
-        return JSONResponse(
-            status_code=200,
-            content={"status": "stored", "event_group_id": event_group_id}
-        )
+        # Look up username from monitor_event_groups table using monitor_id
+        username = get_username_by_monitor_id(monitor_id)
+        if not username:
+            logger = logging.getLogger("webhook")
+            logger.warning(
+                f"Could not find username for monitor_id={monitor_id} in database; "
+                f"not storing event_group_id. This may happen if this is the first event "
+                f"for a monitor that hasn't been properly registered."
+            )
+            return JSONResponse(
+                status_code=200,
+                content={"status": "received", "error": f"Monitor {monitor_id} not found in database"}
+            )
+
+        stored = save_event_group(username, monitor_id, event_group_id, metadata)
+        if stored:
+            return JSONResponse(
+                status_code=200,
+                content={"status": "stored", "event_group_id": event_group_id}
+            )
+        else:
+            # Event group may have already been stored (duplicate webhook)
+            return JSONResponse(
+                status_code=200,
+                content={"status": "received", "event_group_id": event_group_id, "note": "Event group already exists"}
+            )
     except Exception as e:
         # Log error but return 200 to acknowledge receipt and prevent retries
         logger = logging.getLogger("webhook")
@@ -315,17 +360,41 @@ async def parallel_monitor_webhook(request: Request):
         )
 
 
-async def stream_monitor_events() -> AsyncGenerator[str, None]:
-    """Stream stored monitor events to the client in SSE format."""
-    api_key = os.getenv("PARALLEL_API_KEY")
+async def stream_monitor_events(username: str) -> AsyncGenerator[str, None]:
+    """Stream stored monitor events to the client in SSE format (scoped to a single user).
+    Returns OpenAI-compatible streaming format.
+    """
+    api_key = os.getenv("PARALLELAI_API_KEY")
     if not api_key:
-        yield "data: {\"error\":\"PARALLEL_API_KEY not set\"}\n\n"
+        error_msg = {
+            "id": "chatcmpl-error",
+            "object": "chat.completion.chunk",
+            "created": int(time.time()),
+            "model": "monitor-updates",
+            "choices": [{
+                "index": 0,
+                "delta": {"role": "assistant", "content": "Error: PARALLELAI_API_KEY not set"},
+                "finish_reason": None
+            }]
+        }
+        yield f"data: {json.dumps(error_msg)}\n\n"
         yield "data: [DONE]\n\n"
         return
 
-    event_groups = fetch_unprocessed_event_groups()
+    event_groups = fetch_unprocessed_event_groups(username)
     if not event_groups:
-        yield "data: {\"info\":\"No pending monitor events\"}\n\n"
+        info_msg = {
+            "id": "chatcmpl-info",
+            "object": "chat.completion.chunk",
+            "created": int(time.time()),
+            "model": "monitor-updates",
+            "choices": [{
+                "index": 0,
+                "delta": {"role": "assistant", "content": "No pending monitor events."},
+                "finish_reason": "stop"
+            }]
+        }
+        yield f"data: {json.dumps(info_msg)}\n\n"
         yield "data: [DONE]\n\n"
         return
 
@@ -342,37 +411,79 @@ async def stream_monitor_events() -> AsyncGenerator[str, None]:
                 response = await client.get(url, headers=headers)
                 response.raise_for_status()
                 events_payload = response.json()
-                for event in events_payload.get("events", []):
+                for idx, event in enumerate(events_payload.get("events", [])):
+                    # Format as OpenAI-compatible SSE response
+                    event_output = event.get("output", "")
+                    event_date = event.get("event_date", "")
+                    source_urls = event.get("source_urls", [])
+                    # Create a formatted message combining event details
+                    formatted_content = f"Event Date: {event_date}\n\n{event_output}"
+                    if source_urls:
+                        formatted_content += f"\n\nSources: {', '.join(source_urls)}"
+
+                    # Format as OpenAI streaming response
+                    is_last_event = idx == len(events_payload.get("events", [])) - 1
                     message = {
-                        "monitor_id": monitor_id,
-                        "event_group_id": event_group_id,
-                        "event": event,
-                        "metadata": json.loads(group["metadata"]) if group.get("metadata") else None,
-                        "received_at": group["received_at"]
+                        "id": f"chatcmpl-{event_group_id[:8]}-{idx}",
+                        "object": "chat.completion.chunk",
+                        "created": int(time.time()),
+                        "model": "monitor-updates",
+                        "choices": [{
+                            "index": 0,
+                            "delta": {
+                                "role": "assistant",
+                                "content": formatted_content + ("\n\n---\n\n" if not is_last_event else "")
+                            },
+                            "finish_reason": "stop" if is_last_event else None
+                        }]
                     }
                     yield f"data: {json.dumps(message)}\n\n"
                 mark_event_group_processed(event_group_id)
             except httpx.HTTPError as exc:
-                error_message = {"error": f"Failed to fetch events for {event_group_id}", "detail": str(exc)}
-                yield f"data: {json.dumps(error_message)}\n\n"
+                error_msg = {
+                    "id": "chatcmpl-error",
+                    "object": "chat.completion.chunk",
+                    "created": int(time.time()),
+                    "model": "monitor-updates",
+                    "choices": [{
+                        "index": 0,
+                        "delta": {
+                            "role": "assistant",
+                            "content": f"Error: Failed to fetch events for {event_group_id}: {str(exc)}"
+                        },
+                        "finish_reason": None
+                    }]
+                }
+                yield f"data: {json.dumps(error_msg)}\n\n"
     yield "data: [DONE]\n\n"
-
-
-@app.get("/update/chat/completions")
-async def monitor_updates_endpoint(authorization: Optional[str] = Header(None)):
-    """Expose monitor updates as an SSE stream. Requires valid bearer token."""
-    token = None
-    if authorization and authorization.lower().startswith("bearer "):
-        token = authorization[7:].strip()
-    is_valid, _ = is_token_valid(token)
-    if is_valid == "rate_limited":
-        raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again tomorrow.")
-    if not is_valid:
-        raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
-
-    return StreamingResponse(stream_monitor_events(), media_type="text/event-stream")
 
 # ========== Main Execution ==========
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    # Get server configuration from environment variables
+    host = os.getenv("SERVER_HOST", "0.0.0.0")
+    port = int(os.getenv("SERVER_PORT", "8080"))
+
+    # SSL/TLS configuration for HTTPS
+    ssl_certfile = os.getenv("SSL_CERTFILE")
+    ssl_keyfile = os.getenv("SSL_KEYFILE")
+    # Configure SSL if certificates are provided
+    ssl_kwargs = {}
+
+    if ssl_certfile and ssl_keyfile:
+        if not os.path.exists(ssl_certfile):
+            raise FileNotFoundError(f"SSL certificate file not found: {ssl_certfile}")
+        if not os.path.exists(ssl_keyfile):
+            raise FileNotFoundError(f"SSL key file not found: {ssl_keyfile}")
+        ssl_kwargs["ssl_certfile"] = ssl_certfile
+        ssl_kwargs["ssl_keyfile"] = ssl_keyfile
+        print(f"Starting HTTPS server on {host}:{port}")
+        print(f"SSL Certificate: {ssl_certfile}")
+        print(f"SSL Key: {ssl_keyfile}")
+    else:
+        print(f"Starting HTTP server on {host}:{port}")
+        if not ssl_certfile and not ssl_keyfile:
+            print("Note: To enable HTTPS, set SSL_CERTFILE and SSL_KEYFILE environment variables")
+        else:
+            raise ValueError("Both SSL_CERTFILE and SSL_KEYFILE must be set to enable HTTPS")
+    uvicorn.run(app, host=host, port=port, **ssl_kwargs)
