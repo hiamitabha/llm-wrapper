@@ -19,7 +19,9 @@ from monitor.manage_monitor_db import (
     fetch_unprocessed_event_groups,
     mark_event_group_processed,
     get_username_by_monitor_id,
+    register_monitor,
 )
+from monitor.create_monitor import create_monitor
 
 # Initialize FastAPI application
 app = FastAPI(
@@ -34,6 +36,7 @@ load_dotenv()
 providers = dict()
 
 PARALLEL_API_BASE = "https://api.parallel.ai/v1alpha"
+DEFAULT_MONITOR_WEBHOOK_URL = "https://knowledge.learnwitharobot.com/webhooks/parallel-monitor"
 # ========== Core LLM Provider Class ==========
 class LLMProvider:
     def __init__(self, name: str, base_url: str, api_key_env: str,
@@ -297,6 +300,20 @@ async def serve_default_html():
         )
 
 
+@app.get("/create-monitor")
+async def serve_create_monitor_html():
+    """Serve the HTML page for creating monitors."""
+    try:
+        with open("html/create-monitor.html", "r", encoding="utf-8") as f:
+            html_content = f.read()
+        return StreamingResponse(iter([html_content]), media_type="text/html")
+    except FileNotFoundError:
+        return StreamingResponse(
+            iter(["<h1>Create Monitor</h1><p>HTML file not found. Please check the html/create-monitor.html file.</p>"]), 
+            media_type="text/html"
+        )
+
+
 @app.post("/webhooks/parallel-monitor")
 async def parallel_monitor_webhook(request: Request):
     """Webhook receiver for Parallel Monitor events. Stores event_group_ids for later retrieval.
@@ -359,6 +376,91 @@ async def parallel_monitor_webhook(request: Request):
             content={"status": "received", "error": "Internal processing error"}
         )
 
+
+@app.post("/v1/monitors/create")
+async def create_monitor_endpoint(
+    request: Request,
+    payload: dict,
+    authorization: Optional[str] = Header(None)
+):
+    """Create a Parallel Monitor via web UI or API.
+    Requires valid authentication token. The monitor will be associated with the authenticated user.
+    """
+    # Extract Bearer token
+    token = None
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    is_valid, username = is_token_valid(token)
+    if is_valid == "rate_limited":
+        raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again tomorrow.")
+    if not is_valid:
+        raise HTTPException(status_code=401, detail="Invalid or expired authorization token.")
+    
+    # Get required fields from payload
+    query = payload.get("query")
+    cadence = payload.get("cadence")
+    if not query:
+        raise HTTPException(status_code=400, detail="Missing required field: query")
+    if not cadence:
+        raise HTTPException(status_code=400, detail="Missing required field: cadence")
+    if cadence not in ["hourly", "daily", "weekly"]:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid cadence: {cadence}. Must be one of: hourly, daily, weekly"
+        )
+    # Get Parallel API key
+    api_key = os.getenv("PARALLEL_API_KEY")
+    if not api_key:
+        raise HTTPException(
+            status_code=500,
+            detail="PARALLEL_API_KEY not configured on server"
+        )
+    # Get webhook URL from environment variable with default
+    webhook_url = os.getenv("MONITOR_WEBHOOK_URL", DEFAULT_MONITOR_WEBHOOK_URL)
+    # Prepare metadata with username
+    metadata = {"username": username}
+    try:
+        # Create the monitor via Parallel API
+        created = create_monitor(
+            api_key=api_key,
+            query=query,
+            cadence=cadence,
+            webhook_url=webhook_url,
+            event_types=["monitor.event.detected"],
+            metadata=metadata,
+        )
+        monitor_id = created.get("monitor_id")
+        if monitor_id:
+            # Register the monitor_id -> username mapping
+            registered = register_monitor(username, monitor_id)
+            if not registered:
+                logger = logging.getLogger("monitor")
+                logger.warning(f"Monitor {monitor_id} created but registration failed (may already exist)")
+        return JSONResponse(
+            status_code=200,
+            content={
+                "monitor_id": monitor_id,
+                "status": created.get("status", "active"),
+                "cadence": created.get("cadence", cadence),
+                "query": created.get("query", query),
+                "webhook_url": webhook_url,
+                "message": "Monitor created successfully"
+            }
+        )
+    except httpx.HTTPStatusError as e:
+        logger = logging.getLogger("monitor")
+        logger.error(f"Parallel API error: {e.response.text}")
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"Failed to create monitor: {e.response.text}"
+        )
+    except Exception as e:
+        logger = logging.getLogger("monitor")
+        logger.error(f"Error creating monitor: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal error creating monitor: {str(e)}"
+        )
 
 async def stream_monitor_events(username: str) -> AsyncGenerator[str, None]:
     """Stream stored monitor events to the client in SSE format (scoped to a single user).

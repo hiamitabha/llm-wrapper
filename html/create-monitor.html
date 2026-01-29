@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Monitor - LLM Wrapper</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        input[type="text"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #3182ce;
+        }
+        button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        .message.success {
+            background: #c6f6d5;
+            border: 1px solid #68d391;
+            color: #22543d;
+        }
+        .message.error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #742a2a;
+        }
+        .message.info {
+            background: #bee3f8;
+            border: 1px solid #63b3ed;
+            color: #2c5282;
+        }
+        .help-text {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #4299e1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4299e1;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+        <h1>📡 Create Monitor</h1>
+        <p style="text-align: center; color: #718096; margin-bottom: 30px;">
+            Set up a web monitor to track updates on topics you care about
+        </p>
+
+        <div id="message" class="message"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Creating monitor...</p>
+        </div>
+
+        <form id="monitor-form">
+            <div class="form-group">
+                <label for="token">Authentication Token *</label>
+                <input type="password" id="token" name="token" required 
+                       placeholder="Enter your API token">
+                <div class="help-text">Your API token for authentication</div>
+            </div>
+
+            <div class="form-group">
+                <label for="topic">Topic to Monitor *</label>
+                <textarea id="topic" name="topic" required 
+                          placeholder="e.g., Recent news about quantum computing in AI"></textarea>
+                <div class="help-text">Describe what you want to monitor in natural language</div>
+            </div>
+
+            <div class="form-group">
+                <label for="cadence">Monitoring Frequency *</label>
+                <select id="cadence" name="cadence" required>
+                    <option value="">Select frequency...</option>
+                    <option value="hourly">Hourly</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                </select>
+                <div class="help-text">How often should we check for updates?</div>
+            </div>
+
+            <button type="submit" id="submit-btn">Create Monitor</button>
+        </form>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f7fafc; border-radius: 8px;">
+            <h3 style="margin-top: 0;">ℹ️ How it works:</h3>
+            <ol style="color: #4a5568;">
+                <li>Enter your authentication token</li>
+                <li>Describe the topic you want to monitor</li>
+                <li>Choose how often to check for updates</li>
+                <li>You'll receive updates via the webhook when new events are detected</li>
+                <li>Query updates using model "speed" with update-related keywords</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('monitor-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const token = document.getElementById('token').value;
+            const topic = document.getElementById('topic').value;
+            const cadence = document.getElementById('cadence').value;
+            
+            const messageDiv = document.getElementById('message');
+            const loadingDiv = document.getElementById('loading');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Hide previous messages and show loading
+            messageDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/v1/monitors/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        query: topic,
+                        cadence: cadence
+                    })
+                });
+                
+                const data = await response.json();
+                
+                loadingDiv.style.display = 'none';
+                submitBtn.disabled = false;
+                
+                if (response.ok) {
+                    messageDiv.className = 'message success';
+                    messageDiv.innerHTML = `
+                        <strong>✅ Monitor Created Successfully!</strong><br>
+                        <strong>Monitor ID:</strong> ${data.monitor_id}<br>
+                        <strong>Status:</strong> ${data.status}<br>
+                        <strong>Cadence:</strong> ${data.cadence}<br>
+                        <p style="margin-top: 10px;">Your monitor is now active and will check for updates ${cadence}.</p>
+                    `;
+                    messageDiv.style.display = 'block';
+                    
+                    // Reset form
+                    document.getElementById('monitor-form').reset();
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.innerHTML = `<strong>❌ Error:</strong> ${data.detail || 'Failed to create monitor'}`;
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                loadingDiv.style.display = 'none';
+                submitBtn.disabled = false;
+                messageDiv.className = 'message error';
+                messageDiv.innerHTML = `<strong>❌ Error:</strong> ${error.message || 'Network error occurred'}`;
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
