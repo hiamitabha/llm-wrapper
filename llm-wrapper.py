@@ -20,6 +20,9 @@ from monitor.manage_monitor_db import (
     mark_event_group_processed,
     get_username_by_monitor_id,
     register_monitor,
+    get_user_monitors,
+    mark_monitor_deactivated,
+    get_expired_monitors,
 )
 from monitor.create_monitor import create_monitor
 
@@ -37,6 +40,75 @@ providers = dict()
 
 PARALLEL_API_BASE = "https://api.parallel.ai/v1alpha"
 DEFAULT_MONITOR_WEBHOOK_URL = "https://knowledge.learnwitharobot.com/webhooks/parallel-monitor"
+
+
+async def deactivate_monitor_on_parallel(monitor_id: str, api_key: str) -> None:
+    """Send a delete request to Parallel API to deactivate a monitor."""
+    url = f"{PARALLEL_API_BASE}/monitors/{monitor_id}"
+    headers = {"x-api-key": api_key}
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            response = await client.delete(url, headers=headers)
+            # 404 means already deleted/unknown; treat as success
+            if response.status_code not in (200, 202, 204, 404):
+                logging.getLogger("monitor").warning(
+                    "Failed to deactivate monitor %s on Parallel API: %s",
+                    monitor_id,
+                    response.text,
+                )
+    except Exception as exc:
+        logging.getLogger("monitor").error(
+            "Error calling Parallel API to deactivate monitor %s: %s",
+            monitor_id,
+            str(exc),
+        )
+
+
+async def deactivate_previous_monitors_for_user(username: str, api_key: str) -> None:
+    """Deactivate any existing monitors for this user, both locally and on Parallel."""
+    existing = get_user_monitors(username)
+    if not existing:
+        return
+    logger = logging.getLogger("monitor")
+    for entry in existing:
+        monitor_id = entry.get("monitor_id")
+        if not monitor_id:
+            continue
+        logger.info("Deactivating previous monitor %s for user %s", monitor_id, username)
+        await deactivate_monitor_on_parallel(monitor_id, api_key)
+        mark_monitor_deactivated(monitor_id)
+
+
+async def deactivate_expired_monitors_worker() -> None:
+    """Background worker: periodically deactivate monitors older than 24 hours."""
+    api_key = os.getenv("PARALLEL_API_KEY")
+    if not api_key:
+        logging.getLogger("monitor").warning(
+            "PARALLEL_API_KEY not set; expired monitor cleanup will be disabled."
+        )
+        return
+    logger = logging.getLogger("monitor")
+    # Small initial delay to allow app startup
+    await asyncio.sleep(10)
+    while True:
+        try:
+            expired = get_expired_monitors(hours=24)
+            if expired:
+                logger.info("Found %d expired monitors to deactivate", len(expired))
+            for entry in expired:
+                monitor_id = entry.get("monitor_id")
+                if not monitor_id:
+                    continue
+                username = entry.get("username")
+                logger.info(
+                    "Auto-deactivating expired monitor %s for user %s", monitor_id, username
+                )
+                await deactivate_monitor_on_parallel(monitor_id, api_key)
+                mark_monitor_deactivated(monitor_id)
+        except Exception as exc:
+            logger.error("Error in deactivate_expired_monitors_worker: %s", str(exc), exc_info=True)
+        # Run once per hour
+        await asyncio.sleep(3600)
 # ========== Core LLM Provider Class ==========
 class LLMProvider:
     def __init__(self, name: str, base_url: str, api_key_env: str,
@@ -234,6 +306,10 @@ def is_token_valid(token: str, db_path="tokens/auth_tokens.db") -> (bool, str):
 @app.on_event("startup")
 def startup_event():
     load_providers("./config.json")
+    # Initialize monitor DB tables
+    init_monitor_db()
+    # Start background task to deactivate expired monitors
+    asyncio.create_task(deactivate_expired_monitors_worker())
 
 def contains_update_keywords(messages: List[dict]) -> bool:
     """Check if any message content contains update-related keywords."""
@@ -420,6 +496,9 @@ async def create_monitor_endpoint(
     # Prepare metadata with username
     metadata = {"username": username}
     try:
+        # First, deactivate any existing monitors for this user
+        await deactivate_previous_monitors_for_user(username, api_key)
+
         # Create the monitor via Parallel API
         created = create_monitor(
             api_key=api_key,

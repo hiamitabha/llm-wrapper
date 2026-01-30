@@ -1,7 +1,7 @@
 import argparse
 import sqlite3
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 
 # Use the same SQLite DB as token management so we have one DB with two tables.
@@ -55,7 +55,7 @@ def register_monitor(username: str, monitor_id: str, db_path: str = DB_PATH) -> 
     if not username_exists(username, db_path=db_path):
         return False
 
-    # Use a special event_group_id to mark this as a registration record
+    # Use a special event_group_id prefix to mark this as a registration record
     registration_event_group_id = f"__registration__{monitor_id}"
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
@@ -76,6 +76,28 @@ def register_monitor(username: str, monitor_id: str, db_path: str = DB_PATH) -> 
     conn.commit()
     conn.close()
     return inserted
+
+
+def get_user_monitors(username: str, db_path: str = DB_PATH) -> List[Dict[str, Any]]:
+    """Return all monitor registrations for a given user.
+
+    Registration rows are identified by event_group_id starting with '__registration__'.
+    """
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute(
+        """
+        SELECT monitor_id, received_at, metadata
+        FROM monitor_event_groups
+        WHERE username = ? AND event_group_id LIKE '__registration__%'
+        ORDER BY received_at DESC
+        """,
+        (username,),
+    )
+    rows = c.fetchall()
+    conn.close()
+    return [dict(row) for row in rows]
 
 def save_event_group(username: str, monitor_id: str, event_group_id: str, metadata: Optional[dict], db_path: str = DB_PATH) -> bool:
     """Persist a new event group id if we haven't seen it before."""
@@ -128,6 +150,70 @@ def get_username_by_monitor_id(monitor_id: str, db_path: str = DB_PATH) -> Optio
     row = c.fetchone()
     conn.close()
     return row[0] if row else None
+
+
+def mark_monitor_deactivated(monitor_id: str, db_path: str = DB_PATH) -> None:
+    """Mark a monitor as deactivated by updating its registration metadata."""
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    # Fetch current metadata for registration rows
+    c.execute(
+        """
+        SELECT id, metadata FROM monitor_event_groups
+        WHERE monitor_id = ? AND event_group_id LIKE '__registration__%'
+        """,
+        (monitor_id,),
+    )
+    rows = c.fetchall()
+    for row in rows:
+        row_id, metadata_text = row
+        try:
+            meta = json.loads(metadata_text) if metadata_text else {}
+        except json.JSONDecodeError:
+            meta = {}
+        meta["deactivated"] = True
+        c.execute(
+            "UPDATE monitor_event_groups SET metadata = ? WHERE id = ?",
+            (json.dumps(meta), row_id),
+        )
+    conn.commit()
+    conn.close()
+
+
+def get_expired_monitors(hours: int = 24, db_path: str = DB_PATH) -> List[Dict[str, Any]]:
+    """Return monitors whose registration is older than the given number of hours and not yet marked deactivated."""
+    cutoff = datetime.utcnow() - timedelta(hours=hours)
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute(
+        """
+        SELECT username, monitor_id, received_at, metadata
+        FROM monitor_event_groups
+        WHERE event_group_id LIKE '__registration__%'
+        """
+    )
+    rows = c.fetchall()
+    conn.close()
+
+    expired: List[Dict[str, Any]] = []
+    for row in rows:
+        data = dict(row)
+        metadata_text = data.get("metadata")
+        try:
+            meta = json.loads(metadata_text) if metadata_text else {}
+        except json.JSONDecodeError:
+            meta = {}
+        if meta.get("deactivated"):
+            continue
+        received_at = data.get("received_at")
+        try:
+            received_dt = datetime.fromisoformat(received_at)
+        except Exception:
+            continue
+        if received_dt <= cutoff:
+            expired.append(data)
+    return expired
 
 
 def mark_event_group_processed(event_group_id: str, db_path: str = DB_PATH):
