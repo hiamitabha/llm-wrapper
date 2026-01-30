@@ -81,10 +81,10 @@ async def deactivate_previous_monitors_for_user(username: str, api_key: str) -> 
 
 async def deactivate_expired_monitors_worker() -> None:
     """Background worker: periodically deactivate monitors older than 24 hours."""
-    api_key = os.getenv("PARALLEL_API_KEY")
+    api_key = os.getenv("PARALLELAI_API_KEY")
     if not api_key:
         logging.getLogger("monitor").warning(
-            "PARALLEL_API_KEY not set; expired monitor cleanup will be disabled."
+            "PARALLELAI_API_KEY not set; expired monitor cleanup will be disabled."
         )
         return
     logger = logging.getLogger("monitor")
@@ -485,11 +485,11 @@ async def create_monitor_endpoint(
             detail=f"Invalid cadence: {cadence}. Must be one of: hourly, daily, weekly"
         )
     # Get Parallel API key
-    api_key = os.getenv("PARALLEL_API_KEY")
+    api_key = os.getenv("PARALLELAI_API_KEY")
     if not api_key:
         raise HTTPException(
             status_code=500,
-            detail="PARALLEL_API_KEY not configured on server"
+            detail="PARALLELAI_API_KEY not configured on server"
         )
     # Get webhook URL from environment variable with default
     webhook_url = os.getenv("MONITOR_WEBHOOK_URL", DEFAULT_MONITOR_WEBHOOK_URL)
