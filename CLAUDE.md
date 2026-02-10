@@ -66,7 +66,8 @@ systemctl start <service-name>
 ### Core Components
 
 **llm-wrapper.py** - Main FastAPI application with:
-- `LLMProvider` class: Handles requests to individual LLM providers (streaming & non-streaming)
+- `LLMProvider` class: Handles requests to OpenAI-compatible providers (streaming & non-streaming)
+- `AnthropicProvider` class: Handles requests to Anthropic (Claude) with automatic format conversion
 - `AnalyticsLogger`: Logs requests to llm_proxy.log
 - Token validation and rate limiting middleware
 - Webhook endpoints for Parallel Monitor events
@@ -97,6 +98,7 @@ systemctl start <service-name>
     "name": "Provider Name",
     "base_url": "https://api.provider.com/v1",
     "api_key_env": "ENV_VAR_NAME",
+    "api_format": "openai",  // or "anthropic" for Claude models
     "supported_models": ["model1", "model2"],
     "payload_extra_parameters": {
       // Provider-specific parameters injected into requests
@@ -104,6 +106,10 @@ systemctl start <service-name>
   }
 }
 ```
+
+The `api_format` field determines which provider class is instantiated:
+- `"openai"` (default): Uses `LLMProvider` class for OpenAI-compatible APIs
+- `"anthropic"`: Uses `AnthropicProvider` class with automatic format conversion
 
 **.env file** - Contains API keys referenced by `api_key_env` in config.json. Also supports:
 - `SSL_CERTFILE` / `SSL_KEYFILE`: For HTTPS
@@ -128,6 +134,14 @@ When the model is "speed", the system checks if the user's message contains upda
 ## Important Implementation Notes
 
 ### Provider-Specific Behavior
+
+**Anthropic (Claude)**: Uses a completely different API format from OpenAI. The `AnthropicProvider` class handles bidirectional conversion:
+- **Incoming**: Converts OpenAI format (`messages` array with system role) to Anthropic format (separate `system` parameter, filtered messages)
+- **Outgoing**: Converts Anthropic response (content blocks) to OpenAI format (single message string)
+- **Streaming**: Parses Anthropic's SSE format (`event:` + `data:` lines) and converts to OpenAI streaming chunks
+- **Required**: Anthropic requires `max_tokens` parameter (defaults to 4096 if not provided)
+- **Headers**: Uses `x-api-key` and `anthropic-version: 2023-06-01` instead of Bearer token
+- **Endpoint**: Uses `/v1/messages` instead of `/v1/chat/completions`
 
 **Perplexity Sonar**: Response format differs in streaming mode. The `normalize_response()` method in `LLMProvider` handles conversion to OpenAI-compatible format by extracting the delta content from their specific response structure.
 
@@ -178,6 +192,7 @@ Required for each provider being used:
 - `SAMBANOVA_API_KEY`
 - `TOGETHER_API_KEY`
 - `OPENAI_API_KEY`
+- `ANTHROPIC_API_KEY` (for Claude models)
 - `PARALLELAI_API_KEY` (required for monitor functionality)
 
 Optional:

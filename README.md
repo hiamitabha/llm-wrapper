@@ -46,7 +46,11 @@ You can also modify the `base_url` to point to your preferred LLM provider (make
 XAI_API_KEY="<Insert your XAI APi Key here"
 # Insert your Perplexity API Key below
 PPLX_API_KEY="<Insert your Perplexity Sonar API Key here>"
+# Insert your Anthropic API Key below
+ANTHROPIC_API_KEY="<Insert your Anthropic API Key here>"
 ```
+
+You can get your Anthropic API key at: https://console.anthropic.com/
 
 4. Before starting the server for the first time, create the token database (this only needs to be done once):
 
@@ -63,25 +67,196 @@ You can now see the token with `python3 tokens/manage_tokens.py list`
 
 `python3 llm-wrapper.py`
 
-This will start the llm wrapper on your localhost at http://0.0.0.0:8000 and use it as your API Key
+This will start the llm wrapper on your localhost at http://0.0.0.0:8080 and use it as your API Key
 
 6. Now on your app which needs to do LLM Inference, you can set the parameters for LLM inference as:
-API URL: http://localhost:8000/v1
+API URL: http://localhost:8080/v1
 API Key: <Token created using Step 4>
 Model Name: <Choose one of the models from the `supported_models` section of config.json
 
-# Parallel Monitor (offline setup)
+# API Format Support
 
-This repo includes an **offline** script to create a Parallel Monitor (not integrated into `llm-wrapper.py`).
+llm-wrapper supports both OpenAI and Anthropic API formats:
 
-Per the Monitor API Quickstart, monitor creation is done via `POST https://api.parallel.ai/v1alpha/monitors` with `x-api-key`, `query`, `cadence`, and a `webhook` configuration. See: https://docs.parallel.ai/monitor-api/monitor-quickstart
+## OpenAI API Format
+Most providers (XAI, Perplexity, Sambanova, Together AI, OpenAI) use the OpenAI-compatible API format. Your application sends requests in OpenAI format, and they're passed through directly.
+
+## Anthropic API Format (Claude Models)
+For Claude models from Anthropic, llm-wrapper automatically handles the conversion:
+
+1. **Your app sends requests in OpenAI format** (standard `/v1/chat/completions` endpoint)
+2. llm-wrapper converts the request to Anthropic's Messages API format
+3. The request is sent to Anthropic's API
+4. Anthropic's response is converted back to OpenAI format
+5. Your app receives the response in OpenAI format
+
+This means you can use Claude models with any application that supports OpenAI API format, without modifying your application code.
+
+### Supported Claude Models
+- `claude-3-5-sonnet-20241022` (recommended)
+- `claude-3-5-haiku-20241022`
+- `claude-3-opus-20240229`
+- `claude-3-sonnet-20240229`
+- `claude-3-haiku-20240307`
+
+### Example Usage
+```bash
+curl -X POST "http://localhost:8080/v1/chat/completions" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "claude-3-5-sonnet-20241022",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Hello!"}
+    ],
+    "stream": true
+  }'
+```
+
+The system automatically detects that this is a Claude model and handles the format conversion transparently.
+
+# Enabling HTTPS
+
+To serve the API over HTTPS instead of HTTP, you need SSL/TLS certificates. The server supports HTTPS via environment variables.
+
+## Steps to Enable HTTPS:
+
+1. **Obtain SSL Certificates:**
+   
+   You have several options:
+   
+   **Option A: Use Let's Encrypt (Recommended for Production)**
+   ```bash
+   # Install certbot
+   sudo apt-get update
+   sudo apt-get install certbot
+   
+   # Obtain certificates (replace your-domain.com with your actual domain)
+   sudo certbot certonly --standalone -d your-domain.com
+   ```
+   
+   This creates certificates at:
+   - Certificate: `/etc/letsencrypt/live/your-domain.com/fullchain.pem`
+   - Private Key: `/etc/letsencrypt/live/your-domain.com/privkey.pem`
+
+   **Option B: Use Self-Signed Certificates (For Testing/Development)**
+   ```bash
+   # Generate self-signed certificate (valid for 365 days)
+   openssl req -x509 -newkey rsa:4096 -nodes \
+     -out cert.pem -keyout key.pem \
+     -days 365 -subj "/CN=your-domain.com"
+   ```
+
+   **Option C: Use Existing Certificates**
+   - Ensure you have a certificate file (`.pem`, `.crt`, or `.cert`)
+   - Ensure you have the corresponding private key file (`.pem`, `.key`)
+
+2. **Set Environment Variables:**
+   
+   Add to your `.env` file or export in your shell:
+   ```bash
+   export SSL_CERTFILE="/path/to/your/certificate.pem"
+   export SSL_KEYFILE="/path/to/your/private-key.pem"
+   export SERVER_PORT="443"  # Optional: default HTTPS port (or use 8080)
+   ```
+
+   Or add to `.env`:
+   ```
+   SSL_CERTFILE=/etc/letsencrypt/live/your-domain.com/fullchain.pem
+   SSL_KEYFILE=/etc/letsencrypt/live/your-domain.com/privkey.pem
+   SERVER_PORT=443
+   ```
+
+3. **Start the Server:**
+   
+   ```bash
+   python3 llm-wrapper.py
+   ```
+   
+   The server will detect the SSL certificates and start in HTTPS mode. You should see:
+   ```
+   Starting HTTPS server on 0.0.0.0:443
+   SSL Certificate: /path/to/certificate.pem
+   SSL Key: /path/to/private-key.pem
+   ```
+
+4. **Update Your API URLs:**
+   
+   Change your API endpoint from `http://` to `https://`:
+   ```
+   API URL: https://your-domain.com:443/v1
+   ```
+
+## Additional Considerations:
+
+- **Firewall:** Ensure port 443 (or your chosen HTTPS port) is open in your firewall
+- **Certificate Permissions:** Ensure the certificate files are readable by the process running the server
+- **Certificate Renewal:** Let's Encrypt certificates expire every 90 days. Set up automatic renewal:
+  ```bash
+  # Add to crontab (runs twice daily)
+  0 0,12 * * * certbot renew --quiet --deploy-hook "systemctl reload your-service"
+  ```
+- **Reverse Proxy:** For production, consider using a reverse proxy (nginx, Apache) with SSL termination instead of running SSL directly in uvicorn. This provides better performance and security features.
+
+# Parallel Monitor Setup
+
+This repo supports creating and managing Parallel Monitors to track web updates on topics you care about.
+
+## Web UI (Recommended)
+
+The easiest way to create a monitor is through the web interface:
+
+1. Navigate to `http://your-server/create-monitor` in your browser
+2. Enter your authentication token
+3. Specify the topic you want to monitor (in natural language)
+4. Select the monitoring frequency (hourly, daily, or weekly)
+5. Click "Create Monitor"
+
+The monitor will be automatically registered and associated with your username.
+
+## Command Line (Offline Setup)
+
+Alternatively, you can use the command-line script:
 
 1. Export your API key:
 `export PARALLEL_API_KEY="..."`
 
 2. Create a monitor:
 
-`python3 monitor/create_monitor.py --query "Extract recent news about quantum in AI" --cadence daily --webhook_url "https://YOUR_DOMAIN/webhooks/parallel-monitor" --event_types "monitor.event.detected" --metadata_json '{"key":"value"}'`
+`python3 monitor/create_monitor.py --username "<username>" --query "Extract recent news about quantum in AI" --cadence daily --webhook_url "https://YOUR_DOMAIN/webhooks/parallel-monitor" --event_types "monitor.event.detected"`
+
+## Configuration
+
+### Webhook URL
+
+The webhook URL is configurable via environment variable. Set it in your `.env` file or export it:
+
+```bash
+export MONITOR_WEBHOOK_URL="https://your-domain.com/webhooks/parallel-monitor"
+```
+
+If not set, it defaults to: `https://knowledge.learnwitharobot.com/webhooks/parallel-monitor`
+
+### Querying Monitor Updates
+
+Once monitors are set up, you can query for updates using the chat completions endpoint with:
+- Model: `"speed"`
+- Messages containing update-related keywords (e.g., "What are the latest updates?", "Show me recent news")
+
+Example:
+```bash
+curl -X POST "http://your-server/v1/chat/completions" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "speed",
+    "messages": [{"role": "user", "content": "What are the latest updates?"}],
+    "stream": true
+  }'
+```
+
+For more details, see: https://docs.parallel.ai/monitor-api/monitor-quickstart
 
 # Notes
 
